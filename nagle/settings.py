@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+#
+# SETTINGS
+
+
+# ALL CONSTANTS ARE VISIBLE EVERYWHERE
