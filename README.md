@@ -1,6 +1,6 @@
 # nagle
 
-This is a code companion to [John F. Nagle](https://www.cmu.edu/physics/people/faculty/nagle.html)'s working paper [Method Used for Measuring Redistricting Bias & Responsiveness](https://www.cmu.edu/physics/people/faculty/nagle.html).
+This is a code companion to [John F. Nagle](https://www.cmu.edu/physics/people/faculty/nagle.html)'s white paper [Method Used for Measuring Redistricting Bias & Responsiveness](https://www.cmu.edu/physics/people/faculty/nagle.html).
 
 ## License
 
