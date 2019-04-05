@@ -17,51 +17,29 @@ class Plan:
 # Print the plan details
 
 
-def print_plan(plan, percent=False):
-    # title = plan.name + " plan using " + plan.election_model + " data"
-    # rule_len = len(title)
-    # hr = '_' * rule_len
-
-    # print()
-    # print(title)
-    # print(hr)
-    # print()
-    # print("VPI by District:")
-    # print()
-
+def print_plan(plan):
     print("DISTRICT,", "VPI")
 
     i = 0
     for vpi in plan.vpi_by_district:
         i += 1
-        if percent:
-            print("{0:2},".format(i), "{0:.1%}".format(vpi))
-        else:
-            print("{0:2},".format(i), "{0:.6f}".format(vpi))
+        print("{0:2},".format(i), "{0:.6f}".format(vpi))
     print()
 
 # Print the estimated S/V points
 
 
-def print_points(plan, points, sign=False, percent=False):
-    if percent:
-        print("V(%),", "S(%)")
-    else:
-        print("Vf", "Sf")
-    # print()
+def print_points(plan, points, sign=False):
+    print("Vf", "Sf")
 
     for vote_share, seats in points:
         seat_share = seats / plan.districts
-        if percent:
-            print("{0:2.2%},".format(vote_share), "{0:3.2%}".format(
+        if sign:
+            print("{0:.6f},".format(vote_share), "{0:+.6f}".format(
                 seat_share))
         else:
-            if sign:
-                print("{0:.6f},".format(vote_share), "{0:+.6f}".format(
-                    seat_share))
-            else:
-                print("{0:.6f},".format(vote_share), "{0:.6f}".format(
-                    seat_share))
+            print("{0:.6f},".format(vote_share), "{0:.6f}".format(
+                seat_share))
 
 
 def print_analytics(plan):

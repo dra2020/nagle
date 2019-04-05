@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from math import erf, sqrt, isclose
-import numpy as np
 from scipy.interpolate import interp1d
 
 from .helpers import *
