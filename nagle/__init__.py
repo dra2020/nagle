@@ -1,7 +1,7 @@
 # nagle/__init__.py
 
-name = "nagle"
-
-from .method import *
-from .settings import *
 from .utils import *
+from .settings import *
+from .helpers import *
+from .method import *
+name = "nagle"

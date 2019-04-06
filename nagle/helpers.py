@@ -43,6 +43,20 @@ def print_points(plan, points, sign=False):
 
 
 def print_analytics(plan):
+    print("SeatsBiasSimple:", "{0:+0.2f} seats".format(plan.seats_bias))
+    print("SeatsBiasSimplePercent:", "({0:+.2%})".format(plan.seats_bias_pct))
+    print("SeatsBiasGeometric:", "{0:+0.2f} seats".format(plan.b_gs))
+    print("SeatsBiasGeometricPercent:", "({0:+.2%})".format(plan.b_gs_pct))
+    print("VotesBiasSimple:", "{0:+.2%}".format(plan.votes_bias))
+    print("VotesBiasSimpleGeometric:", "{0:+.2%}".format(plan.b_gv))
+    print("Responsiveness:", " {0:0.2f}".format(plan.responsiveness))
+    print("Responsive districts    :",
+          " {0:0.2f}".format(plan.responsive_districts))
+
+# TODO - DELETE
+
+
+def print_analytics_DELETE(plan):
     print()
     print("Analytics")
     print("_________")
@@ -66,7 +80,6 @@ def print_analytics(plan):
     print("* Responsive districts    :",
           " {0:0.2f}".format(plan.responsive_districts))
     print()
-
 
 # Plot an S/V Curve
 
