@@ -75,8 +75,10 @@ def print_analytics(plan):
     print("VotesBiasSimpleGeometric: ", "{0:+.2%}".format(plan.b_gv))
     print("Responsiveness:           ",
           " {0:0.2f}".format(plan.responsiveness))
-    print("Responsive districts:     ",
-          " {0:0.2f}".format(plan.responsive_districts))
+    print("ResponsiveDistricts:      ",
+          " {0:0.2f}".format(plan.responsive_districts)),
+    print("AverageVPI:               ",
+          " {0:0.6f}".format(plan.average_VPI))
 
 # Plot an S/V Curve
 

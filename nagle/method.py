@@ -2,6 +2,7 @@
 
 from math import erf, sqrt, isclose
 from scipy.interpolate import interp1d
+import numpy as np
 
 from .helpers import *
 
@@ -202,5 +203,7 @@ def evaluate_plan(plan):
 
     plan.b_gv = est_geometric_votes_bias(
         plan.d_sv_pts, plan.r_sv_pts, plan.statewide_seats)
+
+    plan.average_VPI = np.mean(plan.vpi_by_district)
 
 #
