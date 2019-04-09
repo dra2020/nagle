@@ -26,7 +26,7 @@ def print_plan(plan):
         print("{0:2},".format(i), "{0:.6f}".format(vpi))
     print()
 
-# Print the estimated S/V points
+# Print the estimated points for an S(V) or B_GS curve
 
 
 def print_points(plan, points, sign=False):
@@ -41,45 +41,42 @@ def print_points(plan, points, sign=False):
             print("{0:.6f},".format(vote_share), "{0:.6f}".format(
                 seat_share))
 
+# Print the estimated points for the D S(V), R S(V), and B_GS curves
+
+
+def print_all_points(plan):
+    print("Vf, D-Sf, R-Sf, B_GSf")
+
+    for i in range(0, plan.n_sv_pts):
+        vf_d, s_d = plan.d_sv_pts[i]
+        _, s_r = plan.r_sv_pts[i]
+        _, b_gs = plan.b_gs_pts[i]
+
+        # Convert #'s of seats to seat shares
+        sf_d = s_d / plan.districts
+        sf_r = s_r / plan.districts
+        b_gsf = b_gs / plan.districts
+
+        print("{0:.6f},".format(vf_d),
+              "{0:.6f},".format(sf_d),
+              "{0:.6f},".format(sf_r),
+              "{0:+.6f}".format(b_gsf)
+              )
+
 
 def print_analytics(plan):
-    print("SeatsBiasSimple:", "{0:+0.2f} seats".format(plan.seats_bias))
-    print("SeatsBiasSimplePercent:", "({0:+.2%})".format(plan.seats_bias_pct))
-    print("SeatsBiasGeometric:", "{0:+0.2f} seats".format(plan.b_gs))
-    print("SeatsBiasGeometricPercent:", "({0:+.2%})".format(plan.b_gs_pct))
-    print("VotesBiasSimple:", "{0:+.2%}".format(plan.votes_bias))
-    print("VotesBiasSimpleGeometric:", "{0:+.2%}".format(plan.b_gv))
-    print("Responsiveness:", " {0:0.2f}".format(plan.responsiveness))
-    print("Responsive districts    :",
-          " {0:0.2f}".format(plan.responsive_districts))
-
-# TODO - DELETE
-
-
-def print_analytics_DELETE(plan):
-    print()
-    print("Analytics")
-    print("_________")
-    print()
-    print("* Seats bias @ V = 50%    :",
-          "{0:+0.2f} seats".format(plan.seats_bias),
+    print("SeatsBiasSimple:          ",
+          "{0:+0.2f} seats".format(plan.seats_bias))
+    print("SeatsBiasSimplePercent:   ",
           "({0:+.2%})".format(plan.seats_bias_pct))
-    print("             @ V =",
-          "{0:.2%} :".format(plan.statewide_vote_share),
-          "{0:+0.2f} seats".format(plan.b_gs),
-          "({0:+.2%})".format(plan.b_gs_pct))
-    print()
-    print("* Votes bias @ S = 50%    :", "{0:+.2%}".format(plan.votes_bias))
-    seat_share = plan.statewide_seats / plan.districts
-    print("             @ S =",
-          "{0:.2%} :".format(seat_share),
-          "{0:+.2%}".format(plan.b_gv))
-    print()
-    print("* Responsiveness          :",
+    print("SeatsBiasGeometric:       ", "{0:+0.2f} seats".format(plan.b_gs))
+    print("SeatsBiasGeometricPercent:", "({0:+.2%})".format(plan.b_gs_pct))
+    print("VotesBiasSimple:          ", "{0:+.2%}".format(plan.votes_bias))
+    print("VotesBiasSimpleGeometric: ", "{0:+.2%}".format(plan.b_gv))
+    print("Responsiveness:           ",
           " {0:0.2f}".format(plan.responsiveness))
-    print("* Responsive districts    :",
+    print("Responsive districts:     ",
           " {0:0.2f}".format(plan.responsive_districts))
-    print()
 
 # Plot an S/V Curve
 
