@@ -55,56 +55,82 @@ def main():
     # VERIFY THE TWO INPUT FILES
     # print("VPI-by-CD:", vpi_csv)
     # print("Parms:", parms_txt)
+    vpi_csv = '/Users/alecramsay/src/nagle/examples/MD-2018-2012P-VPI-by-CD.csv'
+    parms_txt = '/Users/alecramsay/src/nagle/examples/MD-2018-2012P-parms.txt'
 
-    vpi_by_district = read_vpi(vpi_csv)
+    # Create a plan object
+    plan = Plan()
+    # Read the VPI by district input & add it to the Plan object
+    plan.vpi_by_district = read_vpi(vpi_csv)
+    # Read the parameters input & add it to the Plan object
     parms = read_parms(parms_txt, FIELD_SPECS)
+    for i in parms:
+        print("Parm =", i, "value =", parms[i])
+        setattr(plan, i, parms[i])
 
-    print()
-    print("VPI by CD =", vpi_by_district)
-    print()
-    print("Parms =", parms)
-    print()
+    # hardcode_plan(plan)  # REMOVE
 
-    # plan = Plan()
-    # hardcode_plan(plan)
+    evaluate_plan(plan)
 
-    # evaluate_plan(plan)
-    # print_all_points(plan)
-    # print_analytics(plan)
+    # TODO - Create file names
+    points_csv = 'MD-2018-2012P-points.csv'
+    analytics_txt = 'MD-2018-2012P-analytics.txt'
+    points_csv = os.path.abspath(points_csv)
+    analytics_txt = os.path.abspath(analytics_txt)
+
+    # TODO - Redirect this output to files or write proper files
+    print_all_points(plan)
+    print_analytics(plan)
 
 
 # READ THE TWO INPUT FILES
 
 
-def read_vpi(v_csv):
+def read_vpi(vpi_csv):
+    vpi_by_district = []
     try:
-        vpi_by_cd = read_vpi_csv(v_csv)
+        # vpi_by_cd = read_vpi_csv(v_csv) DELETE
+        # Get the full path to the .csv
+        vpi_csv = os.path.expanduser(vpi_csv)
+
+        with open(vpi_csv, mode="r", encoding="utf-8-sig") as f_input:
+            csv_file = csv.DictReader(f_input)
+
+            # Process each row in the .csv file
+            for row in csv_file:
+                # Subset the row to the desired columns
+                district_id = row['DISTRICT']
+                vpi_fraction = float(row['VPI'])
+
+                # and write it out into a dictionary
+                vpi_by_district.append(vpi_fraction)
     except Exception as e:
         print("Exception reading VPI-by-CD.csv")
         sys.exit(e)
 
-    return vpi_by_cd
-
-
-def read_vpi_csv(vpi_csv):
-    # Get the full path to the .csv
-    vpi_csv = os.path.expanduser(vpi_csv)
-
-    vpi_by_district = []
-
-    with open(vpi_csv, mode="r", encoding="utf-8-sig") as f_input:
-        csv_file = csv.DictReader(f_input)
-
-        # Process each row in the .csv file
-        for row in csv_file:
-            # Subset the row to the desired columns
-            district_id = row['DISTRICT']
-            vpi_fraction = float(row['VPI'])
-
-            # and write it out into a dictionary
-            vpi_by_district.append(vpi_fraction)
-
     return vpi_by_district
+
+
+# DELETE
+# def read_vpi_csv(vpi_csv):
+#     # Get the full path to the .csv
+#     vpi_csv = os.path.expanduser(vpi_csv)
+
+#     vpi_by_district = []
+
+#     with open(vpi_csv, mode="r", encoding="utf-8-sig") as f_input:
+#         csv_file = csv.DictReader(f_input)
+
+#         # Process each row in the .csv file
+#         for row in csv_file:
+#             # Subset the row to the desired columns
+#             district_id = row['DISTRICT']
+#             vpi_fraction = float(row['VPI'])
+
+#             # and write it out into a dictionary
+#             vpi_by_district.append(vpi_fraction)
+
+#     return vpi_by_district
 
 
 # Fields in parms.text file
@@ -118,8 +144,27 @@ FIELD_SPECS = [
 
 
 def read_parms(parms_txt, field_specs):
+    parms_txt = os.path.expanduser(parms_txt)
+    parms = defaultdict(dict)
+
     try:
-        parms = read_parms_txt(parms_txt, field_specs)
+        # parms = read_parms_txt(parms_txt, field_specs) DELETE
+        i = 0
+        with open(parms_txt, mode="r", encoding="utf-8-sig") as f_input:
+            for line in f_input:
+                line = line.strip('\n')
+                fields = line.split(':')
+                # Use the field_spec name vs. the name in the file
+                field_name = field_specs[i][0]
+                # field_name = fields[0].strip(" \"")
+                field_value = fields[1].strip(" \"")
+
+                field_type = field_specs[i][1]
+                field_value = field_type(field_value)
+
+                parms[field_name] = field_value
+
+                i += 1
     except Exception as e:
         print("Exception reading parms.txt")
         sys.exit(e)
@@ -127,27 +172,28 @@ def read_parms(parms_txt, field_specs):
     return parms
 
 
-def read_parms_txt(parms_txt, field_specs):
-    parms_txt = os.path.expanduser(parms_txt)
+# DELETE
+# def read_parms_txt(parms_txt, field_specs):
+#     parms_txt = os.path.expanduser(parms_txt)
 
-    parms = defaultdict(dict)
+#     parms = defaultdict(dict)
 
-    i = 0
-    with open(parms_txt, mode="r", encoding="utf-8-sig") as f_input:
-        for line in f_input:
-            line = line.strip('\n')
-            fields = line.split(':')
-            field_name = fields[0].strip(" \"")
-            field_value = fields[1].strip(" \"")
+#     i = 0
+#     with open(parms_txt, mode="r", encoding="utf-8-sig") as f_input:
+#         for line in f_input:
+#             line = line.strip('\n')
+#             fields = line.split(':')
+#             field_name = fields[0].strip(" \"")
+#             field_value = fields[1].strip(" \"")
 
-            field_type = field_specs[i][1]
-            field_value = field_type(field_value)
+#             field_type = field_specs[i][1]
+#             field_value = field_type(field_value)
 
-            parms[field_name] = field_value
+#             parms[field_name] = field_value
 
-            i += 1
+#             i += 1
 
-    return parms
+#     return parms
 
 # TODO - WRITE THE TWO OUTPUT FILES
 
