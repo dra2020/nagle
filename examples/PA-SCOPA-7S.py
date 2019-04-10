@@ -18,8 +18,8 @@ plan.vpi_by_district = [
 ]
 
 evaluate_plan(plan)
-print_analytics(plan)
 print_all_points(plan)
+print_analytics(plan)
 
 # plot_partial_sv_curve(plan, "SCOPA S-V Curve")
 

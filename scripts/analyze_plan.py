@@ -66,16 +66,10 @@ def main():
     print()
 
     # plan = Plan()
+    # hardcode_plan(plan)
 
-    # print("TODO - Read input files")
-
-    # # hardcode_plan(plan)
-
-    # print("TODO - Evaluate the plan")
     # evaluate_plan(plan)
-
-    # print("TODO - Write the output files")
-    # print("TODO - Combine points")
+    # print_all_points(plan)
     # print_analytics(plan)
 
 
@@ -154,6 +148,42 @@ def read_parms_txt(parms_txt, field_specs):
             i += 1
 
     return parms
+
+# TODO - WRITE THE TWO OUTPUT FILES
+
+
+def write_points_csv(plan, points_csv):
+    points_csv = os.path.expanduser(points_csv)
+
+    with open(points_csv, 'w') as handle:
+        fieldnames = ['Vf', 'D-Sf', 'R-Sf', 'B_GSf']
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+
+        for row in plan_csv_dict:
+            writer.writerow(row)
+
+
+def write_analytics_txt(plan_csv_dict, map_csv):
+    map_csv = os.path.expanduser(map_csv)
+
+    with open(map_csv, 'w') as handle:
+        fieldnames = ['GEOID', 'DISTRICT']
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        for row in plan_csv_dict:
+            writer.writerow(row)
+
+
+# def write_map_csv(plan_csv_dict, map_csv):
+#     map_csv = os.path.expanduser(map_csv)
+
+#     with open(map_csv, 'w') as handle:
+#         fieldnames = ['GEOID', 'DISTRICT']
+#         writer = csv.DictWriter(handle, fieldnames=fieldnames)
+#         writer.writeheader()
+#         for row in plan_csv_dict:
+#             writer.writerow(row)
 
 # SIMULATE READING THE INPUT FILES
 
