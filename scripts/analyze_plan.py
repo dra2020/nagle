@@ -42,8 +42,8 @@ def main():
     # VERIFY THE TWO INPUT FILES
     # print("VPI-by-CD:", vpi_csv)
     # print("Parms:", parms_txt)
-    vpi_csv = '/Users/alecramsay/src/nagle/examples/MD-2018-2012P-VPI-by-CD.csv'
-    parms_txt = '/Users/alecramsay/src/nagle/examples/MD-2018-2012P-parms.txt'
+    # vpi_csv = '/Users/alecramsay/src/nagle/examples/MD-2018-2012P-VPI-by-CD.csv'
+    # parms_txt = '/Users/alecramsay/src/nagle/examples/MD-2018-2012P-parms.txt'
 
     # Create a plan object
     plan = Plan()
@@ -76,7 +76,6 @@ def main():
 def read_vpi(vpi_csv):
     vpi_by_district = []
     try:
-        # vpi_by_cd = read_vpi_csv(v_csv) DELETE
         # Get the full path to the .csv
         vpi_csv = os.path.expanduser(vpi_csv)
 
@@ -98,28 +97,6 @@ def read_vpi(vpi_csv):
     return vpi_by_district
 
 
-# DELETE
-# def read_vpi_csv(vpi_csv):
-#     # Get the full path to the .csv
-#     vpi_csv = os.path.expanduser(vpi_csv)
-
-#     vpi_by_district = []
-
-#     with open(vpi_csv, mode="r", encoding="utf-8-sig") as f_input:
-#         csv_file = csv.DictReader(f_input)
-
-#         # Process each row in the .csv file
-#         for row in csv_file:
-#             # Subset the row to the desired columns
-#             district_id = row['DISTRICT']
-#             vpi_fraction = float(row['VPI'])
-
-#             # and write it out into a dictionary
-#             vpi_by_district.append(vpi_fraction)
-
-#     return vpi_by_district
-
-
 # Fields in parms.text file
 FIELD_SPECS = [
     ('state', str),
@@ -135,7 +112,6 @@ def read_parms(parms_txt, field_specs):
     parms = defaultdict(dict)
 
     try:
-        # parms = read_parms_txt(parms_txt, field_specs) DELETE
         i = 0
         with open(parms_txt, mode="r", encoding="utf-8-sig") as f_input:
             for line in f_input:
@@ -157,30 +133,6 @@ def read_parms(parms_txt, field_specs):
         sys.exit(e)
 
     return parms
-
-
-# DELETE
-# def read_parms_txt(parms_txt, field_specs):
-#     parms_txt = os.path.expanduser(parms_txt)
-
-#     parms = defaultdict(dict)
-
-#     i = 0
-#     with open(parms_txt, mode="r", encoding="utf-8-sig") as f_input:
-#         for line in f_input:
-#             line = line.strip('\n')
-#             fields = line.split(':')
-#             field_name = fields[0].strip(" \"")
-#             field_value = fields[1].strip(" \"")
-
-#             field_type = field_specs[i][1]
-#             field_value = field_type(field_value)
-
-#             parms[field_name] = field_value
-
-#             i += 1
-
-#     return parms
 
 # TODO - WRITE THE TWO OUTPUT FILES
 
@@ -208,6 +160,7 @@ def write_analytics_txt(plan_csv_dict, map_csv):
             writer.writerow(row)
 
 
+# DELETE
 # def write_map_csv(plan_csv_dict, map_csv):
 #     map_csv = os.path.expanduser(map_csv)
 
