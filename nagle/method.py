@@ -2,6 +2,7 @@
 
 from math import erf, sqrt, isclose
 from scipy.interpolate import interp1d
+import numpy as np
 
 from .helpers import *
 
@@ -114,7 +115,7 @@ def infer_inverse_sv_points(ndistricts, statewide_vote_share, sv_pts):
 
     for v_d, s_d in sv_pts:
         v_r = 1 - v_d
-        s_r = ndistricts - s_d  # # seats, not seat share!
+        s_r = ndistricts - s_d  # # of seats, not seat share!
         inverse_sv_curve_pts.append((v_r, s_r))
 
     inverse_sv_curve_pts = sorted(inverse_sv_curve_pts, key=lambda pt: [pt[0]])
@@ -202,5 +203,7 @@ def evaluate_plan(plan):
 
     plan.b_gv = est_geometric_votes_bias(
         plan.d_sv_pts, plan.r_sv_pts, plan.statewide_seats)
+
+    plan.average_VPI = np.mean(plan.vpi_by_district)
 
 #
