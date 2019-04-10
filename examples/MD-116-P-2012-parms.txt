@@ -1,0 +1,5 @@
+State:     MD
+Districts: 8
+Plan:      "116"
+Election:  "P-2012"
+V:         0.633217
