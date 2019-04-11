@@ -1,11 +1,11 @@
 Analytics
 _________
 
-* Seats bias @ V = 50%    : +2.0 seats (+11.1%)
-             @ V = 54.87% : +1.7 seats (+9.5%)
+* Seats bias @ V = 50%    : +2.00 seats (+11.08%)
+             @ V = 54.87% : +1.71 seats (+9.48%)
 
-* Votes bias @ S = 50%    : +3.1%
-             @ S = 56.44% : +3.1%
+* Votes bias @ S = 50%    : +3.10%
+             @ S = 56.44% : +3.09%
 
-* Responsiveness          :  3.8
-  Responsive districts    :  6.6
+* Responsiveness          :  3.76
+  Responsive districts    :  6.57

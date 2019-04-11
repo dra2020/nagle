@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 #
-# The SCOPA plan using 7S election data. Can be evaluated by hand.
+# THE PA SCOPA PLAN USING 7S ELECTION DATA.
+#
+# Use this to validate the D S(V) curve.
 
 from nagle import *
+
 
 plan = Plan()
 
@@ -17,10 +20,16 @@ plan.vpi_by_district = [
     0.476, 0.454, 0.423, 0.393, 0.39, 0.371
 ]
 
+#
+
+print_plan(plan)
+
 evaluate_plan(plan)
-print_all_points(plan)
+
+print_points(plan, plan.d_sv_pts)
+
 print_analytics(plan)
 
-# plot_partial_sv_curve(plan, "SCOPA S-V Curve")
+plot_partial_sv_curve(plan, "SCOPA S-V Curve")
 
 #
