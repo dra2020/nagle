@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 #
-# The MD 116th CD's, using 2012 Presidential election results. Can be evaluated by hand.
+# MD 2018 CD'S, USING 2012 PRESIDENTIAL ELECTION RESULTS.
 
 from nagle import *
+
 
 plan = Plan()
 
@@ -18,10 +19,14 @@ plan.vpi_by_district = [
 
 #
 
+print_plan(plan)
+
 evaluate_plan(plan)
-print_all_points(plan)
+
+print_points(plan, plan.d_sv_pts)
+
 print_analytics(plan)
 
-# plot_partial_sv_curve(plan, "MD-116-P2012")
+plot_partial_sv_curve(plan, "MD-116-P2012")
 
 #

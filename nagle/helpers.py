@@ -85,7 +85,7 @@ def print_analytics(plan):
     print()
     print("* Responsiveness          :",
           " {0:0.2f}".format(plan.responsiveness))
-    print("* Responsive districts    :",
+    print("  Responsive districts    :",
           " {0:0.2f}".format(plan.responsive_districts))
     print()
 

@@ -8,4 +8,4 @@ _________
              @ S = 56.44% : +3.09%
 
 * Responsiveness          :  3.76
-* Responsive districts    :  6.57
+  Responsive districts    :  6.57
