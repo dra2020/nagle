@@ -1,0 +1,5 @@
+State:     PA
+Districts: 18
+Plan:      SCOPA
+Election:  7S
+V:         0.5487
