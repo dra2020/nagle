@@ -65,6 +65,32 @@ def print_all_points(plan):
 
 
 def print_analytics(plan):
+    print()
+    print("Analytics")
+    print("_________")
+    print()
+    print("* Seats bias @ V = 50%    :",
+          "{0:+0.2f} seats".format(plan.seats_bias),
+          "({0:+.2%})".format(plan.seats_bias_pct))
+    print("             @ V =",
+          "{0:.2%} :".format(plan.statewide_vote_share),
+          "{0:+0.2f} seats".format(plan.b_gs),
+          "({0:+.2%})".format(plan.b_gs_pct))
+    print()
+    print("* Votes bias @ S = 50%    :", "{0:+.2%}".format(plan.votes_bias))
+    seat_share = plan.statewide_seats / plan.districts
+    print("             @ S =",
+          "{0:.2%} :".format(seat_share),
+          "{0:+.2%}".format(plan.b_gv))
+    print()
+    print("* Responsiveness          :",
+          " {0:0.2f}".format(plan.responsiveness))
+    print("* Responsive districts    :",
+          " {0:0.2f}".format(plan.responsive_districts))
+    print()
+
+
+def write_analytics(plan):
     print("SeatsBiasSimple:          ",
           "{0:+0.2f}".format(plan.seats_bias))
     print("SeatsBiasSimplePercent:   ",
