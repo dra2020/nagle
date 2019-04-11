@@ -69,7 +69,6 @@ def main():
     write_points_csv(plan, points_csv)
     write_analytics_txt(plan, analytics_txt)
 
-
 # READ THE TWO INPUT FILES
 
 
@@ -94,7 +93,7 @@ def read_vpi(vpi_csv):
         print("Exception reading VPI-by-CD.csv")
         sys.exit(e)
 
-    return vpi_by_district
+#     return vpi_by_district
 
 
 # Fields in parms.text file
