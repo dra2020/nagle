@@ -6,7 +6,7 @@ You have successfully replicated his basic method, if you can take the informati
 
 The [example file](https://github.com/alecramsay/nagle/blob/master/examples/PA-SCOPA-7S.py) does that, using the code in this repository within a Python environment.
 
-The [examples directory](https://github.com/alecramsay/nagle/tree/master/examples) also contains pairs of files that define maps for PA, MD, and MA which can be analyzed at a command-line using the [analyze_plan.py script](https://github.com/alecramsay/nagle/scripts/analyze_plan.py).
+The [examples directory](https://github.com/alecramsay/nagle/tree/master/examples) also contains pairs of files that define maps for PA, MD, and MA which can be analyzed at a command-line using the [analyze_plan.py script](https://github.com/alecramsay/nagle/blob/master/scripts/analyze_plan.py).
 
 ## License
 
