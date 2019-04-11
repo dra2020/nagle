@@ -5,6 +5,8 @@
 # For example, from the root data directory:
 #
 # analyze_plan.py examples/MD-2018-2012P-VPI-by-CD.csv examples/MD-2018-2012P-parms.txt
+# analyze_plan.py examples/PA-SCOPA-7S-VPI-by-CD.csv examples/PA-SCOPA-7S-parms.txt
+# analyze_plan.py examples/MA-2012-2010A-VPI-by-CD.csv examples/MA-2012-2010A-parms.txt
 #
 # For documentation, type:
 #
@@ -36,38 +38,32 @@ def main():
 
     verbose = args.verbose
 
-    # VERIFY SYSTEM PATHS
-    # print("sys.path =>", sys.path)
-
-    # VERIFY THE TWO INPUT FILES
-    # print("VPI-by-CD:", vpi_csv)
-    # print("Parms:", parms_txt)
-    # vpi_csv = '/Users/alecramsay/src/nagle/examples/MD-2018-2012P-VPI-by-CD.csv'
-    # parms_txt = '/Users/alecramsay/src/nagle/examples/MD-2018-2012P-parms.txt'
-
-    # Create a plan object
     plan = Plan()
-    # Read the VPI by district input & add it to the Plan object
+
+    # Read the input files, and add the data to the Plan object
     plan.vpi_by_district = read_vpi(vpi_csv)
-    # Read the parameters input & add it to the Plan object
     parms = read_parms(parms_txt, FIELD_SPECS)
     for i in parms:
-        print("Parm =", i, "value =", parms[i])
         setattr(plan, i, parms[i])
 
-    # hardcode_plan(plan)  # REMOVE
-
+    # Evaluate the plan & echo the human-friendly analytics report
     evaluate_plan(plan)
+    print_analytics(plan)
 
-    # TODO - Create file names
-    points_csv = 'MD-2018-2012P-points.csv'
-    analytics_txt = 'MD-2018-2012P-analytics.txt'
+    # TODO - Auto-construct file names from the input files
+    # points_csv = 'MD-2018-2012P-points.csv'
+    # analytics_txt = 'MD-2018-2012P-analytics.txt'
+    points_csv = 'PA-SCOPA-7S-points.csv'
+    analytics_txt = 'PA-SCOPA-7S-analytics.txt'
+    # points_csv = 'MA-2012-2010A-points.csv'
+    # analytics_txt = 'MA-2012-2010A-analytics.txt'
+
     points_csv = os.path.abspath(points_csv)
     analytics_txt = os.path.abspath(analytics_txt)
 
-    # TODO - Redirect this output to files or write proper files
-    print_all_points(plan)
-    print_analytics(plan)
+    # Write the output files into the same directory as the input files
+    write_points_csv(plan, points_csv)
+    write_analytics_txt(plan, analytics_txt)
 
 
 # READ THE TWO INPUT FILES
@@ -134,58 +130,52 @@ def read_parms(parms_txt, field_specs):
 
     return parms
 
-# TODO - WRITE THE TWO OUTPUT FILES
+# WRITE THE TWO OUTPUT FILES
 
 
 def write_points_csv(plan, points_csv):
-    points_csv = os.path.expanduser(points_csv)
-
+    # A clone of print_all_points()
     with open(points_csv, 'w') as handle:
-        fieldnames = ['Vf', 'D-Sf', 'R-Sf', 'B_GSf']
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
-        writer.writeheader()
+        print("Vf, D-Sf, R-Sf, B_GSf", file=handle)
 
-        for row in plan_csv_dict:
-            writer.writerow(row)
+        for i in range(0, plan.n_sv_pts):
+            vf_d, s_d = plan.d_sv_pts[i]
+            _, s_r = plan.r_sv_pts[i]
+            _, b_gs = plan.b_gs_pts[i]
 
+            # Convert #'s of seats to seat shares
+            sf_d = s_d / plan.districts
+            sf_r = s_r / plan.districts
+            b_gsf = b_gs / plan.districts
 
-def write_analytics_txt(plan_csv_dict, map_csv):
-    map_csv = os.path.expanduser(map_csv)
-
-    with open(map_csv, 'w') as handle:
-        fieldnames = ['GEOID', 'DISTRICT']
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
-        writer.writeheader()
-        for row in plan_csv_dict:
-            writer.writerow(row)
-
-
-# DELETE
-# def write_map_csv(plan_csv_dict, map_csv):
-#     map_csv = os.path.expanduser(map_csv)
-
-#     with open(map_csv, 'w') as handle:
-#         fieldnames = ['GEOID', 'DISTRICT']
-#         writer = csv.DictWriter(handle, fieldnames=fieldnames)
-#         writer.writeheader()
-#         for row in plan_csv_dict:
-#             writer.writerow(row)
-
-# SIMULATE READING THE INPUT FILES
+            print("{0:.6f},".format(vf_d),
+                  "{0:.6f},".format(sf_d),
+                  "{0:.6f},".format(sf_r),
+                  "{0:+.6f}".format(b_gsf),
+                  file=handle
+                  )
 
 
-def hardcode_plan(plan):
-    # The SCOPA plan using Nagle's 7s election model
-    plan.state = "PA"
-    plan.districts = 18
-    plan.name = "SCOPA"
-    plan.election_model = "7s"
-    plan.statewide_vote_share = 0.5487
-    plan.vpi_by_district = [
-        0.922, 0.793, 0.684, 0.621, 0.6, 0.566,
-        0.552, 0.526, 0.513, 0.511, 0.495, 0.495,
-        0.476, 0.454, 0.423, 0.393, 0.39, 0.371
-    ]
+def write_analytics_txt(plan, analytics_txt):
+    with open(analytics_txt, 'w') as handle:
+        print("SeatsBiasSimple:          ",
+              "{0:+0.2f}".format(plan.seats_bias), file=handle)
+        print("SeatsBiasSimplePercent:   ",
+              "{0:+.2%}".format(plan.seats_bias_pct), file=handle)
+        print("SeatsBiasGeometric:       ",
+              "{0:+0.2f}".format(plan.b_gs), file=handle)
+        print("SeatsBiasGeometricPercent:",
+              "{0:+.2%}".format(plan.b_gs_pct), file=handle)
+        print("VotesBiasSimple:          ",
+              "{0:+.2%}".format(plan.votes_bias), file=handle)
+        print("VotesBiasSimpleGeometric: ",
+              "{0:+.2%}".format(plan.b_gv), file=handle)
+        print("Responsiveness:           ",
+              " {0:0.2f}".format(plan.responsiveness), file=handle)
+        print("ResponsiveDistricts:      ",
+              " {0:0.2f}".format(plan.responsive_districts), file=handle)
+        print("AverageVPI:               ",
+              " {0:0.6f}".format(plan.average_VPI), file=handle)
 
 # END
 
