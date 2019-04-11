@@ -50,13 +50,17 @@ def main():
     evaluate_plan(plan)
     print_analytics(plan)
 
-    # TODO - Auto-construct file names from the input files
-    # points_csv = 'MD-2018-2012P-points.csv'
-    # analytics_txt = 'MD-2018-2012P-analytics.txt'
-    points_csv = 'PA-SCOPA-7S-points.csv'
-    analytics_txt = 'PA-SCOPA-7S-analytics.txt'
-    # points_csv = 'MA-2012-2010A-points.csv'
-    # analytics_txt = 'MA-2012-2010A-analytics.txt'
+    # Auto-construct file names from the input files
+    # Grab an input file name to pattern the output file names
+    file_pattern = os.path.basename(vpi_csv)
+    parts = [x.strip() for x in file_pattern.split('-')]
+    xx = parts[0]
+    plan_name = parts[1]
+    election = parts[2]
+    d = '-'
+
+    points_csv = xx + d + plan_name + d + election + d + 'points.csv'
+    analytics_txt = xx + d + plan_name + d + election + d + 'analytics.txt'
 
     points_csv = os.path.abspath(points_csv)
     analytics_txt = os.path.abspath(analytics_txt)
