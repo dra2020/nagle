@@ -41,7 +41,7 @@ def main():
     plan = Plan()
 
     # Read the input files, and add the data to the Plan object
-    plan.vpi_by_district = read_vpi(vpi_csv)
+    plan.vpi_by_district, plan.two_party_by_district = read_vpi(vpi_csv)
     parms = read_parms(parms_txt, FIELD_SPECS)
     for i in parms:
         setattr(plan, i, parms[i])
@@ -73,7 +73,12 @@ def main():
 
 
 def read_vpi(vpi_csv):
+    """
+    The VPI file might have a second column of two-party vote totals for analyzing
+    turnout bias.
+    """
     vpi_by_district = []
+    two_party_by_district = []
     try:
         # Get the full path to the .csv
         vpi_csv = os.path.expanduser(vpi_csv)
@@ -89,11 +94,14 @@ def read_vpi(vpi_csv):
 
                 # and write it out into a dictionary
                 vpi_by_district.append(vpi_fraction)
+
+                if 'TWO-PARTY' in row:
+                    two_party_by_district.append(row['TWO-PARTY'])
     except Exception as e:
         print("Exception reading VPI-by-CD.csv")
         sys.exit(e)
 
-    return vpi_by_district
+    return vpi_by_district, two_party_by_district
 
 
 # Fields in parms.text file
