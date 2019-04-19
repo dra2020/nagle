@@ -64,6 +64,35 @@ def print_all_points(plan):
               )
 
 
+def print_analysis(plan):
+    print()
+    print("ANALYSIS @ <datetime>")
+    print("==================================================")
+    print()
+    print("For VPI by CD in   MD-2012-2012P-VPI-by-CD.csv")
+    print("with parameters in MD-2012-2012P-parms.txt")
+    print()
+    print("* Number of districts:        8")
+    print("* Actual seats:               D = ?,    R  = ?")
+    print("* Predicted seats:            D = 6.95, R = 4.32")
+    print("* Statewide D vote share (V): 0.633217")
+    print("* Average VPI:                0.634699")
+    print("* Turnout bias:               0.999999")
+    print()
+    print("Results @ V =               0.633217 | 0.5")
+    print("-------------------------------------------------")
+    print("* Seats Bias (#):          +0.41     | -0.33")
+    print("* Seats Bias (%):          +5.08%    | -4.07%")
+    print("* Votes Bias (%):          +1.89%    | -0.79%")
+    print("* Efficiency Gap (%):      -0.099    | -0.33")
+    print("* Responsiveness:            0.41    |  5.13")
+    print("* Responsive Districts (#):  0.23    |  x.xx")
+    print("* ResponsiveDistricts (%):   2.9%    |  y.yy%")
+    print()
+
+# TODO - DELETE
+
+
 def print_analytics(plan):
     print()
     print("Analytics")

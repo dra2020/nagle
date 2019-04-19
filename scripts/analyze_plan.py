@@ -48,7 +48,8 @@ def main():
 
     # Evaluate the plan & echo the human-friendly analytics report
     evaluate_plan(plan)
-    print_analytics(plan)
+    print_analysis(plan)
+    # print_analytics(plan) - TODO - DELETE
 
     # Auto-construct file names from the input files
     # Grab an input file name to pattern the output file names
@@ -60,14 +61,14 @@ def main():
     d = '-'
 
     points_csv = xx + d + plan_name + d + election + d + 'points.csv'
-    analytics_txt = xx + d + plan_name + d + election + d + 'analytics.txt'
+    analysis_txt = xx + d + plan_name + d + election + d + 'analysis.txt'
 
     points_csv = os.path.abspath(points_csv)
-    analytics_txt = os.path.abspath(analytics_txt)
+    analysis_txt = os.path.abspath(analysis_txt)
 
     # Write the output files into the same directory as the input files
-    write_points_csv(plan, points_csv)
-    write_analytics_txt(plan, analytics_txt)
+    # TODO - write_points_csv(plan, points_csv)
+    # TODO - write_analysis_txt(plan, analysis_txt)
 
 # READ THE TWO INPUT FILES
 
@@ -77,6 +78,8 @@ def read_vpi(vpi_csv):
     The VPI file might have a second column of two-party vote totals for analyzing
     turnout bias.
     """
+    # HACK - Reading these separately is a bit of a hack. If we need to do something
+    #   with the two-party vote total, I should combine values into tuples by district.
     vpi_by_district = []
     two_party_by_district = []
     try:
@@ -167,7 +170,7 @@ def write_points_csv(plan, points_csv):
                   )
 
 
-def write_analytics_txt(plan, analytics_txt):
+def write_analysis_txt(plan, analytics_txt):
     with open(analytics_txt, 'w') as handle:
         # Write the file name at the top of the file
         file_name = os.path.basename(analytics_txt)
