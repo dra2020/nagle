@@ -12,6 +12,7 @@ from .helpers import *
 
 def infer_sv_points(statewide_vote_share, vpi_by_district):
     sv_curve_pts = []
+    vpis_at_half_share = []
 
     for shifted_vote_share in shift_range(statewide_vote_share):
         shifted_vpis = shift_districts_proportionally(statewide_vote_share,
@@ -20,7 +21,11 @@ def infer_sv_points(statewide_vote_share, vpi_by_district):
         shifted_seats = est_statewide_seats(shifted_vpis)
         sv_curve_pts.append((shifted_vote_share, shifted_seats))
 
-    return sv_curve_pts
+        # Squirrel away the inferred VPIs by district at V = 0.5
+        if (isclose(shifted_vote_share, 0.5)):
+            vpis_at_half_share = shifted_vpis
+
+    return sv_curve_pts, vpis_at_half_share
 
 # Shift district VPI's proportionally (vs. "uniform swing" assumption)
 
@@ -57,11 +62,20 @@ def est_seat_probability(vpi):
 
 
 def est_seats_bias(sv_curve_pts, total_seats):
-    close_pts = [pt for pt in sv_curve_pts if isclose(pt[0], 0.5)]
-    _, d_seats = next(iter(close_pts))
+    d_seats = d_seats_at_half_share(sv_curve_pts)
+    # TODO - DELETE
+    # close_pts = [pt for pt in sv_curve_pts if isclose(pt[0], 0.5)]
+    # _, d_seats = next(iter(close_pts))
     r_seats = total_seats - d_seats
 
     return (r_seats - d_seats) / 2.0
+
+
+def d_seats_at_half_share(sv_curve_pts):
+    close_pts = [pt for pt in sv_curve_pts if isclose(pt[0], 0.5)]
+    _, d_seats = next(iter(close_pts))
+
+    return d_seats
 
 # Instead expressed as a percentage of the # of districts
 
@@ -174,13 +188,19 @@ def est_geometric_votes_bias(d_sv_pts, r_sv_pts, statewide_seats):
     # NOTE - By convention: '+' = R bias; '-' = D bias
     return 0.5 * (v_d - v_r)
 
+# Calculate the efficiency gap
+
+
+def efficiency_gap(vote_share, seat_share):
+    return (seat_share - 0.5) - (2 * (vote_share - 0.5))
+
 # Execute the method
 
 
 def evaluate_plan(plan):
     plan.statewide_seats = est_statewide_seats(plan.vpi_by_district)
-    plan.d_sv_pts = infer_sv_points(plan.statewide_vote_share,
-                                    plan.vpi_by_district)
+    plan.d_sv_pts, plan.vpis_at_half_share = infer_sv_points(plan.statewide_vote_share,
+                                                             plan.vpi_by_district)
     plan.r_sv_pts = infer_inverse_sv_points(
         plan.districts, plan.statewide_vote_share, plan.d_sv_pts)
     plan.n_sv_pts = len(plan.d_sv_pts)
@@ -204,6 +224,27 @@ def evaluate_plan(plan):
     plan.b_gv = est_geometric_votes_bias(
         plan.d_sv_pts, plan.r_sv_pts, plan.statewide_seats)
 
+    # Added these for research into norms for responsiveness
+
+    plan.predicted_D_seats = est_statewide_seats(plan.vpi_by_district)
+    plan.predicted_R_seats = plan.districts - plan.predicted_D_seats
+
+    plan.actual_D_seats = sum(1 for v in plan.vpi_by_district if (v > 0.5))
+    plan.actual_R_seats = plan.districts - plan.actual_D_seats
+
     plan.average_VPI = np.mean(plan.vpi_by_district)
+    plan.turnout_bias = plan.statewide_vote_share - plan.average_VPI
+
+    plan.r_at_half_vote_share = est_responsiveness(
+        0.5, plan.d_sv_pts, plan.districts)
+
+    plan.number_rd_at_half_share = est_responsive_districts(
+        plan.vpis_at_half_share)
+
+    plan.eg = efficiency_gap(plan.statewide_vote_share,
+                             plan.actual_D_seats / plan.districts)
+
+    d_seats = round(d_seats_at_half_share(plan.d_sv_pts))
+    plan.eg_at_half_share = efficiency_gap(0.5, d_seats / plan.districts)
 
 #

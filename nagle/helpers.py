@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+import time
+import datetime
+
 import plotly.plotly as py
 import plotly.graph_objs as go
 
@@ -66,57 +69,78 @@ def print_all_points(plan):
 
 def print_analysis(plan):
     print()
-    print("ANALYSIS @ <datetime>")
-    print("==================================================")
+    print("ANALYSIS - Captured in", plan.analysis_txt,
+          "@", time.strftime('%l:%M%p %Z on %b %d, %Y'))
+    print("===============================================================================")
     print()
-    print("For VPI by CD in   MD-2012-2012P-VPI-by-CD.csv")
-    print("with parameters in MD-2012-2012P-parms.txt")
+    print("For VPI by CD in   ", plan.vpi_csv)
+    print("with parameters in ", plan.parms_txt)
     print()
-    print("* Number of districts:        8")
-    print("* Actual seats:               D = ?,    R  = ?")
-    print("* Predicted seats:            D = 6.95, R = 4.32")
-    print("* Statewide D vote share (V): 0.633217")
-    print("* Average VPI:                0.634699")
-    print("* Turnout bias:               0.999999")
+
+    print("* Number of districts:        ", "{0:.0f}".format(plan.districts))
+
+    print("* Actual seats:                D =", "{0:0.2f}".format(
+        plan.actual_D_seats), ", R =", "{0:0.2f}".format(plan.actual_R_seats))
+    print("* Predicted seats:             D =", "{0:0.2f}".format(
+        plan.predicted_D_seats), ", R =", "{0:0.2f}".format(plan.predicted_R_seats))
+
+    print("* Statewide D vote share (V): ",
+          "{0:.6f}".format(plan.statewide_vote_share))
+    print("* Average VPI:                ",
+          "{0:0.6f}".format(plan.average_VPI))
+    print("* Difference (turnout bias): ",
+          "{0:0.6f}".format(plan.turnout_bias))
     print()
-    print("Results @ V =               0.633217 | 0.5")
-    print("-------------------------------------------------")
-    print("* Seats Bias (#):          +0.41     | -0.33")
-    print("* Seats Bias (%):          +5.08%    | -4.07%")
-    print("* Votes Bias (%):          +1.89%    | -0.79%")
-    print("* Efficiency Gap (%):      -0.099    | -0.33")
-    print("* Responsiveness:            0.41    |  5.13")
-    print("* Responsive Districts (#):  0.23    |  x.xx")
-    print("* ResponsiveDistricts (%):   2.9%    |  y.yy%")
+
+    print("Results @ V =                 ", "{0:.6f}".format(
+        plan.statewide_vote_share), "|  0.50")
+    print("-------------------------------------------------------------------------------")
+
+    print("* Seats Bias (#):             ",
+          "{0:+0.2f}".format(plan.b_gs), "   | ", "{0:+0.2f}".format(plan.seats_bias))
+    print("*            (%):             ", "{0:+.2%}".format(
+        plan.b_gs_pct), "  |", "{0:+.2%}".format(plan.seats_bias_pct))
+
+    print("* Votes Bias (%):             ",
+          "{0:+.2%}".format(plan.b_gv), "  | ", "{0:+.2%}".format(plan.votes_bias))
+
+    print("* Responsiveness:              ",
+          "{0:0.2f}".format(plan.responsiveness), "   |  ", "{0:0.2f}".format(plan.r_at_half_vote_share))
+    print("* Responsive Districts (#):    ",
+          "{0:0.2f}".format(plan.responsive_districts), "   |  ", "{0:0.2f}".format(plan.number_rd_at_half_share))
+    rd_pct = plan.responsiveness / plan.districts
+    rd_pct_at_half = plan.number_rd_at_half_share / plan.districts
+    print("*                      (%):    ",
+          "{0:.2%}".format(rd_pct), "  | ", "{0:.2%}".format(rd_pct_at_half))
+    print("* Efficiency Gap (%):         ",
+          "{0:.2%}".format(plan.eg), "  | ", "{0:.2%}".format(plan.eg_at_half_share))
     print()
 
 # TODO - DELETE
-
-
-def print_analytics(plan):
-    print()
-    print("Analytics")
-    print("_________")
-    print()
-    print("* Seats bias @ V = 50%    :",
-          "{0:+0.2f} seats".format(plan.seats_bias),
-          "({0:+.2%})".format(plan.seats_bias_pct))
-    print("             @ V =",
-          "{0:.2%} :".format(plan.statewide_vote_share),
-          "{0:+0.2f} seats".format(plan.b_gs),
-          "({0:+.2%})".format(plan.b_gs_pct))
-    print()
-    print("* Votes bias @ S = 50%    :", "{0:+.2%}".format(plan.votes_bias))
-    seat_share = plan.statewide_seats / plan.districts
-    print("             @ S =",
-          "{0:.2%} :".format(seat_share),
-          "{0:+.2%}".format(plan.b_gv))
-    print()
-    print("* Responsiveness          :",
-          " {0:0.2f}".format(plan.responsiveness))
-    print("  Responsive districts    :",
-          " {0:0.2f}".format(plan.responsive_districts))
-    print()
+# def print_analytics(plan):
+#     print()
+#     print("Analytics")
+#     print("_________")
+#     print()
+#     print("* Seats bias @ V = 50%    :",
+#           "{0:+0.2f} seats".format(plan.seats_bias),
+#           "({0:+.2%})".format(plan.seats_bias_pct))
+#     print("             @ V =",
+#           "{0:.2%} :".format(plan.statewide_vote_share),
+#           "{0:+0.2f} seats".format(plan.b_gs),
+#           "({0:+.2%})".format(plan.b_gs_pct))
+#     print()
+#     print("* Votes bias @ S = 50%    :", "{0:+.2%}".format(plan.votes_bias))
+#     seat_share = plan.statewide_seats / plan.districts
+#     print("             @ S =",
+#           "{0:.2%} :".format(seat_share),
+#           "{0:+.2%}".format(plan.b_gv))
+#     print()
+#     print("* Responsiveness          :",
+#           " {0:0.2f}".format(plan.responsiveness))
+#     print("  Responsive districts    :",
+#           " {0:0.2f}".format(plan.responsive_districts))
+#     print()
 
 
 # Plot an S/V Curve

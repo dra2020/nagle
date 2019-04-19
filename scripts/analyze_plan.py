@@ -40,18 +40,17 @@ def main():
 
     plan = Plan()
 
+    # Save the input file names
+    plan.vpi_csv = os.path.basename(vpi_csv)
+    plan.parms_txt = os.path.basename(parms_txt)
+
     # Read the input files, and add the data to the Plan object
     plan.vpi_by_district, plan.two_party_by_district = read_vpi(vpi_csv)
     parms = read_parms(parms_txt, FIELD_SPECS)
     for i in parms:
         setattr(plan, i, parms[i])
 
-    # Evaluate the plan & echo the human-friendly analytics report
-    evaluate_plan(plan)
-    print_analysis(plan)
-    # print_analytics(plan) - TODO - DELETE
-
-    # Auto-construct file names from the input files
+    # Auto-construct output file names from the input files
     # Grab an input file name to pattern the output file names
     file_pattern = os.path.basename(vpi_csv)
     parts = [x.strip() for x in file_pattern.split('-')]
@@ -63,8 +62,16 @@ def main():
     points_csv = xx + d + plan_name + d + election + d + 'points.csv'
     analysis_txt = xx + d + plan_name + d + election + d + 'analysis.txt'
 
+    # Save the analysis output file name
+    plan.analysis_txt = os.path.basename(analysis_txt)
+
     points_csv = os.path.abspath(points_csv)
     analysis_txt = os.path.abspath(analysis_txt)
+
+    # Evaluate the plan & echo the human-friendly analytics report
+    evaluate_plan(plan)
+    print_analysis(plan)
+    # print_analytics(plan) - TODO - DELETE
 
     # Write the output files into the same directory as the input files
     # TODO - write_points_csv(plan, points_csv)
