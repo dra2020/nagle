@@ -40,17 +40,17 @@ def main():
 
     plan = Plan()
 
+    # Save the input file names
+    plan.vpi_csv = os.path.basename(vpi_csv)
+    plan.parms_txt = os.path.basename(parms_txt)
+
     # Read the input files, and add the data to the Plan object
-    plan.vpi_by_district = read_vpi(vpi_csv)
+    plan.vpi_by_district, plan.two_party_by_district = read_vpi(vpi_csv)
     parms = read_parms(parms_txt, FIELD_SPECS)
     for i in parms:
         setattr(plan, i, parms[i])
 
-    # Evaluate the plan & echo the human-friendly analytics report
-    evaluate_plan(plan)
-    print_analytics(plan)
-
-    # Auto-construct file names from the input files
+    # Auto-construct output file names from the input files
     # Grab an input file name to pattern the output file names
     file_pattern = os.path.basename(vpi_csv)
     parts = [x.strip() for x in file_pattern.split('-')]
@@ -60,20 +60,35 @@ def main():
     d = '-'
 
     points_csv = xx + d + plan_name + d + election + d + 'points.csv'
-    analytics_txt = xx + d + plan_name + d + election + d + 'analytics.txt'
+    analysis_txt = xx + d + plan_name + d + election + d + 'analysis.txt'
+
+    # Save the analysis output file name
+    plan.analysis_txt = os.path.basename(analysis_txt)
 
     points_csv = os.path.abspath(points_csv)
-    analytics_txt = os.path.abspath(analytics_txt)
+    analysis_txt = os.path.abspath(analysis_txt)
+
+    # Evaluate the plan & echo the human-friendly analytics report
+    evaluate_plan(plan)
+    print_analysis(plan)
+    # print_analytics(plan) - TODO - DELETE
 
     # Write the output files into the same directory as the input files
     write_points_csv(plan, points_csv)
-    write_analytics_txt(plan, analytics_txt)
+    write_analysis_txt(plan, analysis_txt)
 
 # READ THE TWO INPUT FILES
 
 
 def read_vpi(vpi_csv):
+    """
+    The VPI file might have a second column of two-party vote totals for analyzing
+    turnout bias.
+    """
+    # HACK - Reading these separately is a bit of a hack. If we need to do something
+    #   with the two-party vote total, I should combine values into tuples by district.
     vpi_by_district = []
+    two_party_by_district = []
     try:
         # Get the full path to the .csv
         vpi_csv = os.path.expanduser(vpi_csv)
@@ -89,11 +104,14 @@ def read_vpi(vpi_csv):
 
                 # and write it out into a dictionary
                 vpi_by_district.append(vpi_fraction)
+
+                if 'TWO-PARTY' in row:
+                    two_party_by_district.append(row['TWO-PARTY'])
     except Exception as e:
         print("Exception reading VPI-by-CD.csv")
         sys.exit(e)
 
-#     return vpi_by_district
+    return vpi_by_district, two_party_by_district
 
 
 # Fields in parms.text file
@@ -159,26 +177,31 @@ def write_points_csv(plan, points_csv):
                   )
 
 
-def write_analytics_txt(plan, analytics_txt):
+def write_analysis_txt(plan, analytics_txt):
     with open(analytics_txt, 'w') as handle:
-        print("SeatsBiasSimple:          ",
-              "{0:+0.2f}".format(plan.seats_bias), file=handle)
-        print("SeatsBiasSimplePercent:   ",
-              "{0:+.2%}".format(plan.seats_bias_pct), file=handle)
-        print("SeatsBiasGeometric:       ",
-              "{0:+0.2f}".format(plan.b_gs), file=handle)
-        print("SeatsBiasGeometricPercent:",
-              "{0:+.2%}".format(plan.b_gs_pct), file=handle)
-        print("VotesBiasSimple:          ",
-              "{0:+.2%}".format(plan.votes_bias), file=handle)
-        print("VotesBiasSimpleGeometric: ",
-              "{0:+.2%}".format(plan.b_gv), file=handle)
-        print("Responsiveness:           ",
-              " {0:0.2f}".format(plan.responsiveness), file=handle)
-        print("ResponsiveDistricts:      ",
-              " {0:0.2f}".format(plan.responsive_districts), file=handle)
-        print("AverageVPI:               ",
-              " {0:0.6f}".format(plan.average_VPI), file=handle)
+        # Write the file name at the top of the file
+        file_name = os.path.basename(analytics_txt)
+        print_analysis(plan, handle)
+
+        # TODO - DELETE
+        # print("SeatsBiasSimple:          ",
+        #       "{0:+0.2f}".format(plan.seats_bias), file=handle)
+        # print("SeatsBiasSimplePercent:   ",
+        #       "{0:+.2%}".format(plan.seats_bias_pct), file=handle)
+        # print("SeatsBiasGeometric:       ",
+        #       "{0:+0.2f}".format(plan.b_gs), file=handle)
+        # print("SeatsBiasGeometricPercent:",
+        #       "{0:+.2%}".format(plan.b_gs_pct), file=handle)
+        # print("VotesBiasSimple:          ",
+        #       "{0:+.2%}".format(plan.votes_bias), file=handle)
+        # print("VotesBiasSimpleGeometric: ",
+        #       "{0:+.2%}".format(plan.b_gv), file=handle)
+        # print("Responsiveness:           ",
+        #       " {0:0.2f}".format(plan.responsiveness), file=handle)
+        # print("ResponsiveDistricts:      ",
+        #       " {0:0.2f}".format(plan.responsive_districts), file=handle)
+        # print("AverageVPI:               ",
+        #       " {0:0.6f}".format(plan.average_VPI), file=handle)
 
 # END
 
