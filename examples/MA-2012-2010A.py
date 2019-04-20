@@ -33,7 +33,6 @@ print_points(plan, plan.r_sv_pts)
 print_points(plan, plan.b_gs_pts, sign=True)
 
 print_analysis(plan)
-# TODO - DELETE: print_analytics(plan)
 
 plot_full_sv_curves(plan, "MA S-V Curves")
 

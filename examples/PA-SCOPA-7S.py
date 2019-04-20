@@ -33,7 +33,6 @@ evaluate_plan(plan)
 print_points(plan, plan.d_sv_pts)
 
 print_analysis(plan)
-# TODO - DELETE: print_analytics(plan)
 
 plot_partial_sv_curve(plan, "SCOPA S-V Curve")
 
