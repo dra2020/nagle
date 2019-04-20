@@ -80,13 +80,13 @@ def print_analysis(plan, handle=None):
           "and these parameters in {0}:".format(plan.parms_txt), file=handle)
     print(file=handle)
 
-    print("* Number of districts:         ",
-          "{0:.0f}".format(plan.districts), file=handle)
+    print(
+        "* Number of districts:          {:.0f}".format(plan.districts), file=handle)
 
-    print("* Actual seats:                 D =", "{0:02.2f}".format(
-        plan.actual_D_seats), ", R =", "{0:02.2f}".format(plan.actual_R_seats), file=handle)
-    print("* Predicted seats:              D =", "{0:02.2f}".format(
-        plan.predicted_D_seats), ", R =", "{0:02.2f}".format(plan.predicted_R_seats), file=handle)
+    print("* Actual seats:                 D = {0:02.2f}, R = {0:02.2f}".format(
+        plan.actual_D_seats, plan.actual_R_seats), file=handle)
+    print("* Predicted seats:              D = {0:02.2f}, R = {0:02.2f}".format(
+        plan.predicted_D_seats, plan.predicted_R_seats), file=handle)
 
     print("* Statewide D vote share (V):  ",
           "{0:.6f}".format(plan.statewide_vote_share), file=handle)
@@ -100,24 +100,24 @@ def print_analysis(plan, handle=None):
         plan.statewide_vote_share), "|   0.50", file=handle)
     print("-------------------------------------------------------------------------------", file=handle)
 
-    print("* Seats Bias (#):             ",
-          "{0:+01.2f}".format(plan.b_gs), "    | ", "{0:+01.2f}".format(plan.seats_bias), file=handle)
-    print("             (%):             ", "{0:+#02.2%}".format(
-        plan.b_gs_pct), "   | ", "{0:+#02.2%}".format(plan.seats_bias_pct), file=handle)
+    print("* Seats Bias (#):              {0:+01.2f}     |  {0:+01.2f}".format(
+        plan.b_gs, plan.seats_bias), file=handle)
+    print("             (%):              {0:>+02.2%}    |  {0:>+02.2%}".format(
+        plan.b_gs_pct, plan.seats_bias_pct), file=handle)
 
-    print("* Votes Bias (%):             ",
-          "{0:+#02.2%}".format(plan.b_gv), "   | ", "{0:+#02.2%}".format(plan.votes_bias), file=handle)
+    print("* Votes Bias (%):              {0:+#02.2%}    |  {0:+#02.2%}".format(
+        plan.b_gv, plan.votes_bias), file=handle)
 
-    print("* Responsiveness:              ",
-          "{0:02.2f}".format(plan.responsiveness), "    |  ", "{0:02.2f}".format(plan.r_at_half_vote_share), file=handle)
-    print("* Responsive Districts (#):    ",
-          "{0:02.2f}".format(plan.responsive_districts), "    |  ", "{0:02.2f}".format(plan.number_rd_at_half_share), file=handle)
+    print("* Responsiveness:               {0:02.2f}     |   {0:02.2f}".format(
+        plan.responsiveness, plan.r_at_half_vote_share), file=handle)
+    print("* Responsive Districts (#):     {0:02.2f}     |   {0:02.2f}".format(
+        plan.responsive_districts, plan.number_rd_at_half_share), file=handle)
     rd_pct = plan.responsiveness / plan.districts
     rd_pct_at_half = plan.number_rd_at_half_share / plan.districts
-    print("                       (%):    ",
-          "{0:#02.2%}".format(rd_pct), "   | ", "{0:#02.2%}".format(rd_pct_at_half), file=handle)
-    print("* Efficiency Gap (%):        ",
-          "{0:+#02.2%}".format(plan.eg), "   | ", "{0:+#02.2%}".format(plan.eg_at_half_share), file=handle)
+    print("                       (%):     {0:#02.2%}    |   {0:#02.2%}".format(
+        rd_pct, rd_pct_at_half), file=handle)
+    print("* Efficiency Gap (%):         {0:+#02.2%}    | {0:+#02.2%}".format(
+        plan.eg, plan.eg_at_half_share), file=handle)
     print(file=handle)
 
 
