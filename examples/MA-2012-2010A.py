@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 #
-# A MA REDISTRICTING PLAN, USING NAGLE'S EXTENDED METHOD
+# ANALYZE A MA REDISTRICTING PLAN, USING NAGLE'S EXTENDED METHOD
+#
+# Evaluate this using a Python interpreter.
 #
 # Use this to validate B_GS.
 

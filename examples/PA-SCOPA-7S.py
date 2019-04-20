@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 #
-# THE PA SCOPA PLAN USING 7S ELECTION DATA.
+# ANALYZE THE PA SCOPA PLAN USING 7S ELECTION DATA
+#
+# Evaluate this using a Python interpreter.
 #
 # Use this to validate the D S(V) curve.
 

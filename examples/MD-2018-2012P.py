@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 #
-# MD 2018 CD'S, USING 2012 PRESIDENTIAL ELECTION RESULTS.
+# ANALYZE MD 2018 CD'S, USING 2012 PRESIDENTIAL ELECTION RESULTS
+#
+# Evaluate this using a Python interpreter.
 
 from nagle import *
 
