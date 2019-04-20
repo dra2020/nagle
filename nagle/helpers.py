@@ -102,7 +102,7 @@ def print_analysis(plan, handle=None):
 
     print("* Seats Bias (#):             ",
           "{0:+0.2f}".format(plan.b_gs), "   | ", "{0:+0.2f}".format(plan.seats_bias), file=handle)
-    print("*            (%):             ", "{0:+.2%}".format(
+    print("             (%):             ", "{0:+.2%}".format(
         plan.b_gs_pct), "  |", "{0:+.2%}".format(plan.seats_bias_pct), file=handle)
 
     print("* Votes Bias (%):             ",
@@ -114,7 +114,7 @@ def print_analysis(plan, handle=None):
           "{0:0.2f}".format(plan.responsive_districts), "   |  ", "{0:0.2f}".format(plan.number_rd_at_half_share), file=handle)
     rd_pct = plan.responsiveness / plan.districts
     rd_pct_at_half = plan.number_rd_at_half_share / plan.districts
-    print("*                      (%):    ",
+    print("                       (%):    ",
           "{0:.2%}".format(rd_pct), "  | ", "{0:.2%}".format(rd_pct_at_half), file=handle)
     print("* Efficiency Gap (%):         ",
           "{0:.2%}".format(plan.eg), "  | ", "{0:.2%}".format(plan.eg_at_half_share), file=handle)

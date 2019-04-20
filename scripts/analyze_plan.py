@@ -70,8 +70,10 @@ def main():
 
     # Evaluate the plan & echo the human-friendly analytics report
     evaluate_plan(plan)
-    print_analysis(plan)
-    # print_analytics(plan) - TODO - DELETE
+
+    if verbose:
+        print_analysis(plan)
+        # print_analytics(plan) - TODO - DELETE
 
     # Write the output files into the same directory as the input files
     write_points_csv(plan, points_csv)
