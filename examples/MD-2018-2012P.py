@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 #
-# MD 2018 CD'S, USING 2012 PRESIDENTIAL ELECTION RESULTS.
+# ANALYZE MD 2018 CD'S, USING 2012 PRESIDENTIAL ELECTION RESULTS
+#
+# Evaluate this using a Python interpreter.
 
 from nagle import *
 
@@ -17,6 +19,10 @@ plan.vpi_by_district = [
     0.671242, 0.562937, 0.773399, 0.632344
 ]
 
+plan.vpi_csv = "MD-2018-2012P.py"
+plan.parms_txt = "MD-2018-2012P.py"
+plan.analysis_txt = "STDOUT"
+
 #
 
 print_plan(plan)
@@ -25,8 +31,8 @@ evaluate_plan(plan)
 
 print_points(plan, plan.d_sv_pts)
 
-print_analytics(plan)
+print_analysis(plan)
 
-plot_partial_sv_curve(plan, "MD-116-P2012")
+plot_partial_sv_curve(plan, "MD-2018-2012P")
 
 #

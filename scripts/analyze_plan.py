@@ -70,8 +70,9 @@ def main():
 
     # Evaluate the plan & echo the human-friendly analytics report
     evaluate_plan(plan)
-    print_analysis(plan)
-    # print_analytics(plan) - TODO - DELETE
+
+    if verbose:
+        print_analysis(plan)
 
     # Write the output files into the same directory as the input files
     write_points_csv(plan, points_csv)
@@ -183,25 +184,6 @@ def write_analysis_txt(plan, analytics_txt):
         file_name = os.path.basename(analytics_txt)
         print_analysis(plan, handle)
 
-        # TODO - DELETE
-        # print("SeatsBiasSimple:          ",
-        #       "{0:+0.2f}".format(plan.seats_bias), file=handle)
-        # print("SeatsBiasSimplePercent:   ",
-        #       "{0:+.2%}".format(plan.seats_bias_pct), file=handle)
-        # print("SeatsBiasGeometric:       ",
-        #       "{0:+0.2f}".format(plan.b_gs), file=handle)
-        # print("SeatsBiasGeometricPercent:",
-        #       "{0:+.2%}".format(plan.b_gs_pct), file=handle)
-        # print("VotesBiasSimple:          ",
-        #       "{0:+.2%}".format(plan.votes_bias), file=handle)
-        # print("VotesBiasSimpleGeometric: ",
-        #       "{0:+.2%}".format(plan.b_gv), file=handle)
-        # print("Responsiveness:           ",
-        #       " {0:0.2f}".format(plan.responsiveness), file=handle)
-        # print("ResponsiveDistricts:      ",
-        #       " {0:0.2f}".format(plan.responsive_districts), file=handle)
-        # print("AverageVPI:               ",
-        #       " {0:0.6f}".format(plan.average_VPI), file=handle)
 
 # END
 

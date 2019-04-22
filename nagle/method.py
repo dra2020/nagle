@@ -63,9 +63,6 @@ def est_seat_probability(vpi):
 
 def est_seats_bias(sv_curve_pts, total_seats):
     d_seats = d_seats_at_half_share(sv_curve_pts)
-    # TODO - DELETE
-    # close_pts = [pt for pt in sv_curve_pts if isclose(pt[0], 0.5)]
-    # _, d_seats = next(iter(close_pts))
     r_seats = total_seats - d_seats
 
     return (r_seats - d_seats) / 2.0

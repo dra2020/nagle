@@ -1,6 +1,6 @@
 # nagle
 
-This is a reference implementation of [John F. Nagle](https://www.cmu.edu/physics/people/faculty/nagle.html)'s method for measuring redistricting bias & responsiveness and a code companion to his [whitepaper](http://lipid.phys.cmu.edu/nagle/Technical/2019-04-10%20-%20Measuring%20Redistricting%20Bias%20&%20Responsiveness.pdf) which describes the method.
+This is a reference implementation of [John F. Nagle](https://www.cmu.edu/physics/people/faculty/nagle.html)'s method for measuring redistricting bias & responsiveness and a code companion to his [whitepaper](http://lipid.phys.cmu.edu/nagle/Technical/2019-04-19%20-%20Measuring%20Redistricting%20Bias%20&%20Responsiveness.pdf) which describes the method.
 
 You have successfully replicated his basic method, if you can take the information in in [Attachment 1](https://github.com/alecramsay/nagle/blob/master/attachments/1%20-%20VPI%20by%20Distrct.txt) and produce the outputs in [Attachment 2](https://github.com/alecramsay/nagle/blob/master/attachments/2%20-%20Inferred%20D%20S(V)%20Points.txt) and [Attachment 3](https://github.com/alecramsay/nagle/blob/master/attachments/3%20-%20Analytics.txt).
 
