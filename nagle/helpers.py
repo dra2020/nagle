@@ -84,15 +84,8 @@ def print_analysis(plan, handle=None):
         "* Number of districts:          {0:<2.0f}".format(plan.districts), file=handle)
     print(file=handle)
 
-    # TODO - DELETE
-    # print("* Actual seats:                 D = {0:<5.0f} | R = {1:<5.0f}".format(
-    #     plan.actual_D_seats, plan.actual_R_seats), file=handle)
-    # print("* Predicted seats:              D = {0:<5.2f} | R = {1:<5.2f}".format(
-    #     plan.predicted_D_seats, plan.predicted_R_seats), file=handle)
-
     print("D Vote Share:", file=handle)
     print("-------------------------------------------------------------------------------", file=handle)
-    # print("* Statewide D vote share (V):  ",
     print("* Statewide (V):               ",
           "{0:.6f}".format(plan.statewide_vote_share), file=handle)
     print("* Average VPI:                 ",
@@ -101,19 +94,12 @@ def print_analysis(plan, handle=None):
           "{0:+0.6f}".format(plan.turnout_bias), file=handle)
     print(file=handle)
 
-    # TODO - DELETE
-    # print("Results @ V =                  ", "{0:.6f}".format(
     print("Comparisons @ V =              ", "{0:.6f}".format(
         plan.statewide_vote_share), "|   0.5", file=handle)
     print("-------------------------------------------------------------------------------", file=handle)
 
     print("* Seats (actual / predicted):  {0:2.0f}        |  {1:5.2f}".format(
         plan.actual_D_seats, plan.predicted_D_seats), file=handle)
-
-    # print("* Actual seats:                 D = {0:<5.0f} | R = {1:<5.0f}".format(
-    #     plan.actual_D_seats, plan.actual_R_seats), file=handle)
-    # print("* Predicted seats:              D = {0:<5.2f} | R = {1:<5.2f}".format(
-    #     plan.predicted_D_seats, plan.predicted_R_seats), file=handle)
 
     print("* Seats Bias (#):             {0:+6.2f}     | {1:+6.2f}".format(
         plan.b_gs, plan.seats_bias), file=handle)
