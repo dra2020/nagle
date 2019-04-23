@@ -189,7 +189,12 @@ def est_geometric_votes_bias(d_sv_pts, r_sv_pts, statewide_seats):
 
 
 def efficiency_gap(vote_share, seat_share):
-    return (seat_share - 0.5) - (2 * (vote_share - 0.5))
+    """
+    This version is consistent with the rest of our metrics.
+    It's not the same as the version I've seen elsewhere:
+    EG = (Seat Share – 50%)  – (2 × (Vote Share – 50%))
+    """
+    return (-1 * (seat_share - 0.5)) + (2 * (vote_share - 0.5))
 
 # Execute the method
 
@@ -224,10 +229,12 @@ def evaluate_plan(plan):
     # Added these for research into norms for responsiveness
 
     plan.predicted_D_seats = est_statewide_seats(plan.vpi_by_district)
-    plan.predicted_R_seats = plan.districts - plan.predicted_D_seats
+    # TODO - DELETE
+    # plan.predicted_R_seats = plan.districts - plan.predicted_D_seats
 
     plan.actual_D_seats = sum(1 for v in plan.vpi_by_district if (v > 0.5))
-    plan.actual_R_seats = plan.districts - plan.actual_D_seats
+    # TODO - DELETE
+    # plan.actual_R_seats = plan.districts - plan.actual_D_seats
 
     plan.average_VPI = np.mean(plan.vpi_by_district)
     plan.turnout_bias = plan.statewide_vote_share - plan.average_VPI
@@ -242,6 +249,7 @@ def evaluate_plan(plan):
                              plan.actual_D_seats / plan.districts)
 
     d_seats = round(d_seats_at_half_share(plan.d_sv_pts))
+    print("D seats =", d_seats)
     plan.eg_at_half_share = efficiency_gap(0.5, d_seats / plan.districts)
 
 #
