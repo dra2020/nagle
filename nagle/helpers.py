@@ -107,7 +107,7 @@ def print_analysis(plan, handle=None):
         plan.statewide_vote_share), "|   0.5", file=handle)
     print("-------------------------------------------------------------------------------", file=handle)
 
-    print("* Seats (actual / predicted):   {0:<5.0f}    |   {1:<5.2f}".format(
+    print("* Seats (actual / predicted):  {0:2.0f}        |  {1:5.2f}".format(
         plan.actual_D_seats, plan.predicted_D_seats), file=handle)
 
     # print("* Actual seats:                 D = {0:<5.0f} | R = {1:<5.0f}".format(

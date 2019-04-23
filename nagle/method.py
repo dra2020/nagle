@@ -72,6 +72,8 @@ def d_seats_at_half_share(sv_curve_pts):
     close_pts = [pt for pt in sv_curve_pts if isclose(pt[0], 0.5)]
     _, d_seats = next(iter(close_pts))
 
+    print("D seats at half share =", d_seats)
+
     return d_seats
 
 # Instead expressed as a percentage of the # of districts
@@ -194,6 +196,7 @@ def efficiency_gap(vote_share, seat_share):
     It's not the same as the version I've seen elsewhere:
     EG = (Seat Share – 50%)  – (2 × (Vote Share – 50%))
     """
+    # DELETE - print("EG", vote_share, seat_share)
     return (-1 * (seat_share - 0.5)) + (2 * (vote_share - 0.5))
 
 # Execute the method
