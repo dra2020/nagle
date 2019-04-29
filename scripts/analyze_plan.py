@@ -60,23 +60,24 @@ def main():
     d = '-'
 
     points_csv = xx + d + plan_name + d + election + d + 'points.csv'
-    analysis_txt = xx + d + plan_name + d + election + d + 'analysis.txt'
+    analysis_csv = xx + d + plan_name + d + election + d + 'analysis.csv'
 
-    # Save the analysis output file name
-    plan.analysis_txt = os.path.basename(analysis_txt)
+    # # Save the analysis output file name
+    # plan.analysis_csv = os.path.basename(analysis_csv)
 
     points_csv = os.path.abspath(points_csv)
-    analysis_txt = os.path.abspath(analysis_txt)
+    analysis_csv = os.path.abspath(analysis_csv)
 
     # Evaluate the plan & echo the human-friendly analytics report
     evaluate_plan(plan)
 
     if verbose:
+        # Echo a user-friendly version of the analysis to STDOUT
         print_analysis(plan)
 
     # Write the output files into the same directory as the input files
     write_points_csv(plan, points_csv)
-    write_analysis_txt(plan, analysis_txt)
+    write_analysis_txt(plan, analysis_csv)
 
 # READ THE TWO INPUT FILES
 
@@ -178,11 +179,41 @@ def write_points_csv(plan, points_csv):
                   )
 
 
-def write_analysis_txt(plan, analytics_txt):
-    with open(analytics_txt, 'w') as handle:
-        # Write the file name at the top of the file
-        file_name = os.path.basename(analytics_txt)
-        print_analysis(plan, handle)
+def write_analysis_txt(plan, analytics_csv):
+    with open(analytics_csv, 'w') as handle:
+        print("{0}-{1}, {2}, Definition".format(plan.state,
+                                                plan.name, plan.election_model), file=handle)
+        print("state<V>, {0:.2f}, Statewide fractional D vote".format(
+            plan.statewide_vote_share), file=handle)
+        print(
+            "t-bias, {0:.2f}, state<V> minus average district D vote".format(
+                round(plan.turnout_bias, 2) + 0), file=handle)
+        print("S-fptp, {0:.0f}, Seats from first past the post".format(
+            plan.actual_D_seats), file=handle)
+        print("S<V>est, {0:.2f}, Seats at state<V>".format(
+            plan.predicted_D_seats), file=handle)
+        print("S50est, {0:.2f}, Seats at V=0.5".format(
+            plan.predicted_D_seats_at_half_vote_share), file=handle)
+        print("BS<V>, {0:.2}, % Geometric Seat Bias at statewide<V>".format(
+            plan.b_gs_pct * 100), file=handle)
+        print(
+            "BS50, {0:.2f}, % Simple Bias at V=0.5".format(plan.seats_bias_pct * 100), file=handle)
+        print("BV<V>, {0:.2f}, % Vote Bias at statewide<V>".format(
+            plan.b_gv * 100), file=handle)
+        print("BV50, {0:.2f}, % Vote Bias at V=0.5".format(
+            plan.votes_bias * 100), file=handle)
+        print("R<V>, {0:.2f}, Responsiveness as a slope in S(V) at statewide<V>".format(
+            plan.responsiveness), file=handle)
+        print("R50, {0:.2f}, Responsiveness as a slope in S(V) at V=0.5".format(
+            plan.r_at_half_vote_share), file=handle)
+        print("RD<V>, {0:.2f}, Number of responsive districts at statewide <V>".format(
+            plan.responsive_districts), file=handle)
+        print("RD50, {0:.2f}, Number of responsive districts at V=0.5".format(
+            plan.number_rd_at_half_share), file=handle)
+        print("EG<V>fpp, {0:.2f}, Efficiency Gap at state<V> using first past post S".format(
+            plan.eg * 100), file=handle)
+        print("EG<V>S(V), {0:.2f}, Efficiency Gap at state<V> using estimated S(V)".format(
+            plan.eg_predicted_at_V * 100), file=handle)
 
 
 # END

@@ -228,6 +228,13 @@ def evaluate_plan(plan):
 
     plan.predicted_D_seats = est_statewide_seats(plan.vpi_by_district)
 
+    vpi_by_district_shifted_to_half_share = \
+        shift_districts_proportionally(plan.statewide_vote_share,
+                                       plan.vpi_by_district,
+                                       0.5)
+    plan.predicted_D_seats_at_half_vote_share = est_statewide_seats(
+        vpi_by_district_shifted_to_half_share)
+
     plan.actual_D_seats = sum(1 for v in plan.vpi_by_district if (v > 0.5))
 
     plan.average_VPI = np.mean(plan.vpi_by_district)
@@ -245,5 +252,8 @@ def evaluate_plan(plan):
     # NOTE - DON'T round to create an integral # of seats--Use the fraction!
     d_seats = d_seats_at_half_share(plan.d_sv_pts)
     plan.eg_at_half_share = efficiency_gap(0.5, d_seats / plan.districts)
+
+    plan.eg_predicted_at_V = efficiency_gap(plan.statewide_vote_share,
+                                            plan.predicted_D_seats / plan.districts)
 
 #
