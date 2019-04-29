@@ -72,8 +72,7 @@ def print_analysis(plan, handle=None):
         handle = sys.stdout
 
     print(file=handle)
-    print("ANALYSIS - Captured in", plan.analysis_txt,
-          "@", time.strftime('%l:%M%p %Z on %b %d, %Y'), file=handle)
+    print("ANALYSIS @", time.strftime('%l:%M%p %Z on %b %d, %Y'), file=handle)
     print("===============================================================================", file=handle)
     print(file=handle)
     print("For VPI by CD in {0}, and".format(plan.vpi_csv), file=handle)
@@ -82,43 +81,48 @@ def print_analysis(plan, handle=None):
 
     print(
         "* Number of districts:          {0:<2.0f}".format(plan.districts), file=handle)
+    print(
+        "* Actual D seats (FPTP):        {0:<2.0f}".format(plan.actual_D_seats), file=handle)
     print(file=handle)
 
     print("D Vote Share:", file=handle)
     print("-------------------------------------------------------------------------------", file=handle)
     print("* Statewide (V):               ",
-          "{0:.6f}".format(plan.statewide_vote_share), file=handle)
+          "{0:.2f}".format(plan.statewide_vote_share), file=handle)
     print("* Average VPI:                 ",
-          "{0:0.6f}".format(plan.average_VPI), file=handle)
-    print("* Difference (turnout bias):  ",
-          "{0:+0.6f}".format(plan.turnout_bias), file=handle)
+          "{0:0.2f}".format(plan.average_VPI), file=handle)
+    print("* Turnout bias:                ",
+          "{0:0.2f}".format(round(plan.turnout_bias, 2) + 0), file=handle)
+    print(file=handle)
+    print(
+        "* Efficiency Gap (FPTP):      {0:+7.2%}".format(plan.eg), file=handle)
     print(file=handle)
 
-    print("Comparisons @ V =              ", "{0:.6f}".format(
-        plan.statewide_vote_share), "|   0.5", file=handle)
+    print("S(V) curve analysis @ V =       {0:.2f}   |   0.50".format(
+        plan.statewide_vote_share), file=handle)
     print("-------------------------------------------------------------------------------", file=handle)
 
-    print("* Seats (actual / predicted):  {0:2.0f}        |  {1:5.2f}".format(
-        plan.actual_D_seats, plan.predicted_D_seats), file=handle)
+    print("* Predicted seats:             {0:5.2f}   |  {1:5.2f}".format(
+        plan.predicted_D_seats, plan.predicted_D_seats_at_half_vote_share), file=handle)
 
-    print("* Seats Bias (#):             {0:+6.2f}     | {1:+6.2f}".format(
+    print("* Seats Bias (#):             {0:+6.2f}   | {1:+6.2f}".format(
         plan.b_gs, plan.seats_bias), file=handle)
-    print("             (%):             {0:+7.2%}    | {1:+7.2%}".format(
+    print("             (%):             {0:+7.2%}  | {1:+7.2%}".format(
         plan.b_gs_pct, plan.seats_bias_pct), file=handle)
 
-    print("* Votes Bias (%):             {0:+7.2%}    | {1:+7.2%}".format(
+    print("* Votes Bias (%):             {0:+7.2%}  | {1:+7.2%}".format(
         plan.b_gv, plan.votes_bias), file=handle)
 
-    print("* Responsiveness:              {0:5.2f}     |  {1:5.2f}".format(
+    print("* Responsiveness:              {0:5.2f}   |  {1:5.2f}".format(
         plan.responsiveness, plan.r_at_half_vote_share), file=handle)
-    print("* Responsive Districts (#):    {0:5.2f}     |  {1:5.2f}".format(
+    print("* Responsive Districts (#):    {0:5.2f}   |  {1:5.2f}".format(
         plan.responsive_districts, plan.number_rd_at_half_share), file=handle)
     rd_pct = plan.responsiveness / plan.districts
     rd_pct_at_half = plan.number_rd_at_half_share / plan.districts
-    print("                       (%):    {0:6.2%}    |  {1:6.2%}".format(
+    print("                       (%):    {0:6.2%}  |  {1:6.2%}".format(
         rd_pct, rd_pct_at_half), file=handle)
-    print("* Efficiency Gap (%):         {0:+7.2%}    | {1:+7.2%}".format(
-        plan.eg, plan.eg_at_half_share), file=handle)
+    print("* Efficiency Gap (%):         {0:+7.2%}  | {1:+7.2%}".format(
+        plan.eg_predicted_at_V, plan.eg_at_half_share), file=handle)
     print(file=handle)
 
 
