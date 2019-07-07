@@ -2,7 +2,7 @@
 #
 # MEASURE THE BIAS & RESPONSIVENESS OF REDISTRICTING PLAN, USING JOHN NAGLE'S METHOD
 #
-# For example, from the root data directory:
+# For example:
 #
 # analyze_plan.py examples/MD-2018-2012P-VPI-by-CD.csv examples/MD-2018-2012P-parms.txt
 # analyze_plan.py examples/PA-SCOPA-7S-VPI-by-CD.csv examples/PA-SCOPA-7S-parms.txt

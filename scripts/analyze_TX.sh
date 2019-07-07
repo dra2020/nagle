@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+# ANALYZE A BATCH OF PLANS
+#
+# For example: 
+#
+# analyze_TX.sh
+
+START=$(date +"%T")
+
+echo
+echo "Started analyzing plans @ $START ..."
+echo
+
+echo "... TX-2012-2004P ..."
+cd TX-2012-2004P
+analyze_plan.py TX-2012-2004P-VPI-by-CD.csv TX-2012-2004P-parms.txt
+cd ..
+
+echo "... TX-2012-2006AG ..."
+cd TX-2012-2006AG
+analyze_plan.py TX-2012-2006AG-VPI-by-CD.csv TX-2012-2006AG-parms.txt
+cd ..
+
+echo "... TX-2012-2006C ..."
+cd TX-2012-2006C
+analyze_plan.py TX-2012-2006C-VPI-by-CD.csv TX-2012-2006C-parms.txt
+cd ..
+
+echo "... TX-2012-2006G ..."
+cd TX-2012-2006G
+analyze_plan.py TX-2012-2006G-VPI-by-CD.csv TX-2012-2006G-parms.txt
+cd ..
+
+echo "... TX-2012-2006S ..."
+cd TX-2012-2006S
+analyze_plan.py TX-2012-2006S-VPI-by-CD.csv TX-2012-2006S-parms.txt
+cd ..
+
+echo "... TX-2012-2008P ..."
+cd TX-2012-2008P
+analyze_plan.py TX-2012-2008P-VPI-by-CD.csv TX-2012-2008P-parms.txt
+cd ..
+
+echo "... TX-2012-2008S ..."
+cd TX-2012-2008S
+analyze_plan.py TX-2012-2008S-VPI-by-CD.csv TX-2012-2008S-parms.txt
+cd ..
+
+echo "... TX-2012-2010-12D ..."
+cd TX-2012-2010-12D
+analyze_plan.py TX-2012-2010-12D-VPI-by-CD.csv TX-2012-2010-12D-parms.txt
+cd ..
+
+echo "... TX-2012-2010AG ..."
+cd TX-2012-2010AG
+analyze_plan.py TX-2012-2010AG-VPI-by-CD.csv TX-2012-2010AG-parms.txt
+cd ..
+
+echo "... TX-2012-2010G ..."
+cd TX-2012-2010G
+analyze_plan.py TX-2012-2010G-VPI-by-CD.csv TX-2012-2010G-parms.txt
+cd ..
+
+echo "... TX-2012-2012P ..."
+cd TX-2012-2012P
+analyze_plan.py TX-2012-2012P-VPI-by-CD.csv TX-2012-2012P-parms.txt
+cd ..
+
+echo "... TX-2012-2012S ..."
+cd TX-2012-2012S
+analyze_plan.py TX-2012-2012S-VPI-by-CD.csv TX-2012-2012S-parms.txt
+cd ..
+
+END=$(date +"%T")
+echo
+echo "... finished @ $END."
+echo
