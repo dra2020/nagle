@@ -1,0 +1,16 @@
+IL-2012, 2004P, Definition
+state<V>, 0.552086, Statewide fractional D vote
+t-bias, -0.006914, state<V> minus average district D vote
+S-fptp, 12, Seats from first past the post
+S<V>est, 10.902557, Seats at state<V>
+S50est, 7.708768, Seats at V=0.5
+BS<V>, 4.83789, % Geometric Seat Bias at statewide<V>
+BS50, 7.173513, % Simple Bias at V=0.5
+BV<V>, 2.039003, % Vote Bias at statewide<V>
+BV50, 2.116585, % Vote Bias at V=0.5
+R<V>, 3.414503, Responsiveness as a slope in S(V) at statewide<V>
+R50, 3.118692, Responsiveness as a slope in S(V) at V=0.5
+RD<V>, 5.662108, Number of responsive districts at statewide <V>
+RD50, 5.477623, Number of responsive districts at V=0.5
+EG<V>fpp, -6.249467, Efficiency Gap at state<V> using first past post S
+EG<V>S(V), -0.152559, Efficiency Gap at state<V> using estimated S(V)

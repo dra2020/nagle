@@ -1,0 +1,16 @@
+OH-2012, 2010-12D, Definition
+state<V>, 0.492968, Statewide fractional D vote
+t-bias, -0.003699, state<V> minus average district D vote
+S-fptp, 4, Seats from first past the post
+S<V>est, 4.921195, Seats at state<V>
+S50est, 5.257478, Seats at V=0.5
+BS<V>, 16.8756, % Geometric Seat Bias at statewide<V>
+BS50, 17.140763, % Simple Bias at V=0.5
+BV<V>, 2.723671, % Vote Bias at statewide<V>
+BV50, 3.394603, % Vote Bias at V=0.5
+R<V>, 2.387643, Responsiveness as a slope in S(V) at statewide<V>
+R50, 3.086520, Responsiveness as a slope in S(V) at V=0.5
+RD<V>, 3.226626, Number of responsive districts at statewide <V>
+RD50, 4.213392, Number of responsive districts at V=0.5
+EG<V>fpp, 23.593600, Efficiency Gap at state<V> using first past post S
+EG<V>S(V), 17.836133, Efficiency Gap at state<V> using estimated S(V)

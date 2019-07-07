@@ -1,0 +1,5 @@
+State:     CA
+Districts: 53
+Plan:      "2012"
+Election:  "2008P"
+V:         0.621201

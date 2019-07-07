@@ -1,0 +1,26 @@
+
+ANALYSIS - Captured in MD-2012-2012S-analysis.txt @  2:06PM PDT on Apr 23, 2019
+===============================================================================
+
+For VPI by CD in MD-2012-2012S-VPI-by-CD.csv, and
+parameters in MD-2012-2012S-parms.txt.
+
+* Number of districts:          8 
+
+D Vote Share:
+-------------------------------------------------------------------------------
+* Statewide (V):                0.680116
+* Average VPI:                  0.679631
+* Difference (turnout bias):   +0.000485
+
+Comparisons @ V =               0.680116 |   0.5
+-------------------------------------------------------------------------------
+* Seats (actual / predicted):   7        |   7.07
+* Seats Bias (#):              +0.46     |  -0.36
+             (%):              +5.81%    |  -4.53%
+* Votes Bias (%):              +4.49%    |  -0.90%
+* Responsiveness:               0.96     |   5.02
+* Responsive Districts (#):     0.31     |   3.74
+                       (%):    12.04%    |  46.78%
+* Efficiency Gap (%):          -1.48%    |  -4.53%
+

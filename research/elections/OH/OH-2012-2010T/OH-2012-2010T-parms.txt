@@ -1,0 +1,5 @@
+State:     OH
+Districts: 16
+Plan:      "2012"
+Election:  "2010T"
+V:         0.426716

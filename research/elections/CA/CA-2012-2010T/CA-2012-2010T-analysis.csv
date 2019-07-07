@@ -1,0 +1,16 @@
+CA-2012, 2010T, Definition
+state<V>, 0.609303, Statewide fractional D vote
+t-bias, -0.008419, state<V> minus average district D vote
+S-fptp, 41, Seats from first past the post
+S<V>est, 40.698321, Seats at state<V>
+S50est, 28.016043, Seats at V=0.5
+BS<V>, 4.46533, % Geometric Seat Bias at statewide<V>
+BS50, -2.860458, % Simple Bias at V=0.5
+BV<V>, 1.389295, % Vote Bias at statewide<V>
+BV50, -0.900402, % Vote Bias at V=0.5
+R<V>, 1.436626, Responsiveness as a slope in S(V) at statewide<V>
+R50, 3.144432, Responsiveness as a slope in S(V) at V=0.5
+RD<V>, 7.207890, Number of responsive districts at statewide <V>
+RD50, 14.828731, Number of responsive districts at V=0.5
+EG<V>fpp, -5.497891, Efficiency Gap at state<V> using first past post S
+EG<V>S(V), -4.928684, Efficiency Gap at state<V> using estimated S(V)
