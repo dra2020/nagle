@@ -1,0 +1,5 @@
+State:     MD
+Districts: 8
+Plan:      "2012"
+Election:  "2012S"
+V:         0.680116

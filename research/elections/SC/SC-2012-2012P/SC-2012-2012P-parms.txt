@@ -1,0 +1,5 @@
+State:     SC
+Districts: 7
+Plan:      "2012"
+Election:  "2012P"
+V:         0.446917

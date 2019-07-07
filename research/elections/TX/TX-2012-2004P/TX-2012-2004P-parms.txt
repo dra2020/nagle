@@ -1,0 +1,5 @@
+State:     TX
+Districts: 36
+Plan:      "2012"
+Election:  "2004P"
+V:         0.384891

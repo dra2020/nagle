@@ -1,0 +1,5 @@
+State:     CA
+Districts: 53
+Plan:      "2012"
+Election:  "2010G"
+V:         0.567172

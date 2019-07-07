@@ -1,0 +1,5 @@
+State:     MA
+Districts: 9
+Plan:      "2012"
+Election:  "2010AG"
+V:         0.628115

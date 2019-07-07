@@ -1,0 +1,16 @@
+TX-2012, 2008P, Definition
+state<V>, 0.440649, Statewide fractional D vote
+t-bias, -0.020047, state<V> minus average district D vote
+S-fptp, 12, Seats from first past the post
+S<V>est, 11.835537, Seats at state<V>
+S50est, 16.218973, Seats at V=0.5
+BS<V>, -1.4619, % Geometric Seat Bias at statewide<V>
+BS50, 4.947298, % Simple Bias at V=0.5
+BV<V>, -0.349916, % Vote Bias at statewide<V>
+BV50, 1.294333, % Vote Bias at V=0.5
+R<V>, 0.940132, Responsiveness as a slope in S(V) at statewide<V>
+R50, 3.407573, Responsiveness as a slope in S(V) at V=0.5
+RD<V>, 2.615488, Number of responsive districts at statewide <V>
+RD50, 11.511469, Number of responsive districts at V=0.5
+EG<V>fpp, 4.796467, Efficiency Gap at state<V> using first past post S
+EG<V>S(V), 5.253308, Efficiency Gap at state<V> using estimated S(V)

@@ -1,0 +1,5 @@
+State:     IL
+Districts: 18
+Plan:      "2012"
+Election:  "2008-10D"
+V:         0.627217

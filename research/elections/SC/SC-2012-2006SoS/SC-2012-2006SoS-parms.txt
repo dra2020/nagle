@@ -1,0 +1,5 @@
+State:     SC
+Districts: 7
+Plan:      "2012"
+Election:  "2006SoS"
+V:         0.387370

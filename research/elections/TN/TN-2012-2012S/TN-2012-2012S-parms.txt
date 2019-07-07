@@ -1,0 +1,5 @@
+State:     TN
+Districts: 9
+Plan:      "2012"
+Election:  "2012S"
+V:         0.319068
