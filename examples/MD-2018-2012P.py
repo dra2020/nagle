@@ -30,6 +30,7 @@ print_plan(plan)
 evaluate_plan(plan)
 
 print_points(plan, plan.d_sv_pts)
+print_all_points(plan)
 
 print_analysis(plan)
 

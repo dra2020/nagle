@@ -7,18 +7,19 @@ import numpy as np
 from .helpers import *
 
 
-# Infer an S/V curve, using a proportional shift
+# INFER AN S/V CURVE
 
 
-def infer_sv_points(statewide_vote_share, vpi_by_district):
+def infer_sv_points(statewide_vote_share, vpi_by_district, proportional=True, fptp=False):
     sv_curve_pts = []
     vpis_at_half_share = []
 
     for shifted_vote_share in shift_range(statewide_vote_share):
-        shifted_vpis = shift_districts_proportionally(statewide_vote_share,
-                                                      vpi_by_district,
-                                                      shifted_vote_share)
-        shifted_seats = est_statewide_seats(shifted_vpis)
+        shifted_vpis = shift_districts(statewide_vote_share,
+                                       vpi_by_district,
+                                       shifted_vote_share,
+                                       proportional)
+        shifted_seats = est_statewide_seats(shifted_vpis, fptp)
         sv_curve_pts.append((shifted_vote_share, shifted_seats))
 
         # Squirrel away the inferred VPIs by district at V = 0.5
@@ -27,7 +28,29 @@ def infer_sv_points(statewide_vote_share, vpi_by_district):
 
     return sv_curve_pts, vpis_at_half_share
 
-# Shift district VPI's proportionally (vs. "uniform swing" assumption)
+# SHIFT DISTRICTS EITHER PROPORTIONALLY OR UNIFORMLY
+
+
+def shift_districts(statewide_vote_share,
+                    vpi_by_district,
+                    shifted_vote_share,
+                    proportional=True):
+    if proportional:
+        return shift_districts_proportionally(statewide_vote_share,
+                                              vpi_by_district,
+                                              shifted_vote_share)
+    else:
+        return shift_districts_uniformly(statewide_vote_share,
+                                         vpi_by_district,
+                                         shifted_vote_share)
+
+
+def shift_districts_uniformly(statewide_vote_share, vpi_by_district,
+                              shifted_vote_share):
+    shift = shifted_vote_share - statewide_vote_share
+    shifted_vpis = [(v + shift) for v in vpi_by_district]
+
+    return shifted_vpis
 
 
 def shift_districts_proportionally(statewide_vote_share, vpi_by_district,
@@ -46,10 +69,22 @@ def shift_districts_proportionally(statewide_vote_share, vpi_by_district,
 
     return shifted_vpis
 
-# Estimate the statewide seats, given VPI's by district
+# ESTIMATE THE STATEWIDE SEATS, GIVEN VPI'S BY DISTRICT,
+# EITHER PROBABILISTICALLY OR BY FIRST PAST THE POST
 
 
-def est_statewide_seats(vpi_by_district):
+def est_statewide_seats(vpi_by_district, fptp=False):
+    if fptp:
+        return est_statewide_seats_fptp(vpi_by_district)
+    else:
+        return est_statewide_seats_prob(vpi_by_district)
+
+
+def est_statewide_seats_fptp(vpi_by_district):
+    return sum([1.0 for vpi in vpi_by_district if (vpi > 0.5)])
+
+
+def est_statewide_seats_prob(vpi_by_district):
     return sum([est_seat_probability(vpi) for vpi in vpi_by_district])
 
 # Estimate the probability of a seat win for district, given a VPI
@@ -201,8 +236,20 @@ def evaluate_plan(plan):
     plan.statewide_seats = est_statewide_seats(plan.vpi_by_district)
     plan.d_sv_pts, plan.vpis_at_half_share = infer_sv_points(plan.statewide_vote_share,
                                                              plan.vpi_by_district)
-    plan.r_sv_pts = infer_inverse_sv_points(
-        plan.districts, plan.statewide_vote_share, plan.d_sv_pts)
+
+    # Add uniform shift with FPTP and probablistic estimated seats
+    plan.d_sv_uf_pts, _ = infer_sv_points(plan.statewide_vote_share,
+                                          plan.vpi_by_district,
+                                          proportional=False,
+                                          fptp=True)
+    plan.d_sv_up_pts, _ = infer_sv_points(plan.statewide_vote_share,
+                                          plan.vpi_by_district,
+                                          proportional=False,
+                                          fptp=False)
+
+    plan.r_sv_pts = infer_inverse_sv_points(plan.districts,
+                                            plan.statewide_vote_share,
+                                            plan.d_sv_pts)
     plan.n_sv_pts = len(plan.d_sv_pts)
     plan.b_gs_pts = infer_geometric_seats_bias_points(plan.n_sv_pts,
                                                       plan.d_sv_pts,
@@ -224,7 +271,7 @@ def evaluate_plan(plan):
     plan.b_gv = est_geometric_votes_bias(
         plan.d_sv_pts, plan.r_sv_pts, plan.statewide_seats)
 
-    # Added these for research into norms for responsiveness
+    # Additional metrics for research into norms for responsiveness
 
     plan.predicted_D_seats = est_statewide_seats(plan.vpi_by_district)
 
