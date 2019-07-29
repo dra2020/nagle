@@ -78,7 +78,8 @@ def main():
 
     # Write the output files into the same directory as the input files
     write_points_csv(plan, points_csv)
-    write_analysis_txt(plan, analysis_csv)
+    # TODO - Uncomment next
+    # write_analysis_txt(plan, analysis_csv)
 
 # READ THE TWO INPUT FILES
 
@@ -186,8 +187,8 @@ def write_points_csv(plan, points_csv):
                   "{0:+.6f},".format(b_gsf),
                   # Additional points
                   "{0:.6f},".format(sf_d_pf),
-                  "{0:.6f},".format(sf_d_uf),
-                  "{0:.6f}".format(sf_d_up),
+                  "{0:.6f},".format(sf_d_up),
+                  "{0:.6f}".format(sf_d_uf),
                   file=handle
                   )
 

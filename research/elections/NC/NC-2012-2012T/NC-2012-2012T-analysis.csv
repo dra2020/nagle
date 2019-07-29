@@ -1,0 +1,16 @@
+NC-2012, 2012T, Definition
+state<V>, 0.538273, Statewide fractional D vote
+t-bias, -0.000131, state<V> minus average district D vote
+S-fptp, 4, Seats from first past the post
+S<V>est, 5.514723, Seats at state<V>
+S50est, 3.769204, Seats at V=0.5
+BS<V>, 16.6794, % Geometric Seat Bias at statewide<V>
+BS50, 21.006124, % Simple Bias at V=0.5
+BV<V>, 4.890180, % Vote Bias at statewide<V>
+BV50, 4.962938, % Vote Bias at V=0.5
+R<V>, 5.196165, Responsiveness as a slope in S(V) at statewide<V>
+R50, 2.079322, Responsiveness as a slope in S(V) at V=0.5
+RD<V>, 6.536491, Number of responsive districts at statewide <V>
+RD50, 2.646694, Number of responsive districts at V=0.5
+EG<V>fpp, 26.885369, Efficiency Gap at state<V> using first past post S
+EG<V>S(V), 15.233653, Efficiency Gap at state<V> using estimated S(V)

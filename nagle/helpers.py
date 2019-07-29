@@ -74,8 +74,8 @@ def print_all_points(plan):
               "{0:+.6f},".format(b_gsf),
               # Additional points
               "{0:.6f},".format(sf_d_pf),
-              "{0:.6f},".format(sf_d_uf),
-              "{0:.6f}".format(sf_d_up)
+              "{0:.6f},".format(sf_d_up),
+              "{0:.6f}".format(sf_d_uf)
               )
 
 
