@@ -1,0 +1,5 @@
+State:     PA
+Districts: 18
+Plan:      "2012"
+Election:  "2012P"
+V:         0.527314

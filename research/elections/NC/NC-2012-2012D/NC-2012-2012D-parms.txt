@@ -1,0 +1,5 @@
+State:     NC
+Districts: 13
+Plan:      "2012"
+Election:  "2012D"
+V:         0.505617
