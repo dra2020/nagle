@@ -19,34 +19,19 @@ cd NC-2012-2004P
 analyze_plan.py NC-2012-2004P-VPI-by-CD.csv NC-2012-2004P-parms.txt
 cd ..
 
-echo "... NC-2012-2006AG ..."
-cd NC-2012-2006AG
-analyze_plan.py NC-2012-2006AG-VPI-by-CD.csv NC-2012-2006AG-parms.txt
+echo "... NC-2012-2008A ..."
+cd NC-2012-2008A
+analyze_plan.py NC-2012-2008A-VPI-by-CD.csv NC-2012-2008A-parms.txt
 cd ..
 
-echo "... NC-2012-2006C ..."
-cd NC-2012-2006C
-analyze_plan.py NC-2012-2006C-VPI-by-CD.csv NC-2012-2006C-parms.txt
+echo "... NC-2012-2008AG ..."
+cd NC-2012-2008AG
+analyze_plan.py NC-2012-2008AG-VPI-by-CD.csv NC-2012-2008AG-parms.txt
 cd ..
 
-echo "... NC-2012-2006G ..."
-cd NC-2012-2006G
-analyze_plan.py NC-2012-2006G-VPI-by-CD.csv NC-2012-2006G-parms.txt
-cd ..
-
-echo "... NC-2012-2006SoS ..."
-cd NC-2012-2006SoS
-analyze_plan.py NC-2012-2006SoS-VPI-by-CD.csv NC-2012-2006SoS-parms.txt
-cd ..
-
-echo "... NC-2012-2006T ..."
-cd NC-2012-2006T
-analyze_plan.py NC-2012-2006T-VPI-by-CD.csv NC-2012-2006T-parms.txt
-cd ..
-
-echo "... NC-2012-2008-10D ..."
-cd NC-2012-2008-10D
-analyze_plan.py NC-2012-2008-10D-VPI-by-CD.csv NC-2012-2008-10D-parms.txt
+echo "... NC-2012-2008G ..."
+cd NC-2012-2008G
+analyze_plan.py NC-2012-2008G-VPI-by-CD.csv NC-2012-2008G-parms.txt
 cd ..
 
 echo "... NC-2012-2008P ..."
@@ -59,19 +44,14 @@ cd NC-2012-2008S
 analyze_plan.py NC-2012-2008S-VPI-by-CD.csv NC-2012-2008S-parms.txt
 cd ..
 
-echo "... NC-2012-2010AG ..."
-cd NC-2012-2010AG
-analyze_plan.py NC-2012-2010AG-VPI-by-CD.csv NC-2012-2010AG-parms.txt
+echo "... NC-2012-2008SoS ..."
+cd NC-2012-2008SoS
+analyze_plan.py NC-2012-2008SoS-VPI-by-CD.csv NC-2012-2008SoS-parms.txt
 cd ..
 
-echo "... NC-2012-2010C ..."
-cd NC-2012-2010C
-analyze_plan.py NC-2012-2010C-VPI-by-CD.csv NC-2012-2010C-parms.txt
-cd ..
-
-echo "... NC-2012-2010G ..."
-cd NC-2012-2010G
-analyze_plan.py NC-2012-2010G-VPI-by-CD.csv NC-2012-2010G-parms.txt
+echo "... NC-2012-2008T ..."
+cd NC-2012-2008T
+analyze_plan.py NC-2012-2008T-VPI-by-CD.csv NC-2012-2008T-parms.txt
 cd ..
 
 echo "... NC-2012-2010S ..."
@@ -79,9 +59,24 @@ cd NC-2012-2010S
 analyze_plan.py NC-2012-2010S-VPI-by-CD.csv NC-2012-2010S-parms.txt
 cd ..
 
-echo "... NC-2012-2010SoS ..."
-cd NC-2012-2010SoS
-analyze_plan.py NC-2012-2010SoS-VPI-by-CD.csv NC-2012-2010SoS-parms.txt
+echo "... NC-2012-2012A ..."
+cd NC-2012-2012A
+analyze_plan.py NC-2012-2012A-VPI-by-CD.csv NC-2012-2012A-parms.txt
+cd ..
+
+echo "... NC-2012-2012G ..."
+cd NC-2012-2012G
+analyze_plan.py NC-2012-2012G-VPI-by-CD.csv NC-2012-2012G-parms.txt
+cd ..
+
+echo "... NC-2012-2012D ..."
+cd NC-2012-2012D
+analyze_plan.py NC-2012-2012D-VPI-by-CD.csv NC-2012-2012D-parms.txt
+cd ..
+
+echo "... NC-2012-2012SoS ..."
+cd NC-2012-2012SoS
+analyze_plan.py NC-2012-2012SoS-VPI-by-CD.csv NC-2012-2012SoS-parms.txt
 cd ..
 
 echo "... NC-2012-2010T ..."
