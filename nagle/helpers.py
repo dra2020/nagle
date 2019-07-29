@@ -67,8 +67,8 @@ def print_all_points(plan):
         print("{0:.6f},".format(vf_d),
               "{0:.6f},".format(sf_d),
               "{0:.6f},".format(sf_r),
-              "{0:+.6f}".format(b_gsf),
-              "{0:.6f}".format(sf_d_uf),
+              "{0:+.6f},".format(b_gsf),
+              "{0:.6f},".format(sf_d_uf),
               "{0:.6f}".format(sf_d_up)
               )
 

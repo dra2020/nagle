@@ -179,8 +179,8 @@ def write_points_csv(plan, points_csv):
             print("{0:.6f},".format(vf_d),
                   "{0:.6f},".format(sf_d),
                   "{0:.6f},".format(sf_r),
-                  "{0:+.6f}".format(b_gsf),
-                  "{0:.6f}".format(sf_d_uf),
+                  "{0:+.6f},".format(b_gsf),
+                  "{0:.6f},".format(sf_d_uf),
                   "{0:.6f}".format(sf_d_up),
                   file=handle
                   )

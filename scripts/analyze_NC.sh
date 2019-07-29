@@ -79,9 +79,9 @@ cd NC-2012-2012SoS
 analyze_plan.py NC-2012-2012SoS-VPI-by-CD.csv NC-2012-2012SoS-parms.txt
 cd ..
 
-echo "... NC-2012-2010T ..."
-cd NC-2012-2010T
-analyze_plan.py NC-2012-2010T-VPI-by-CD.csv NC-2012-2010T-parms.txt
+echo "... NC-2012-2012T ..."
+cd NC-2012-2012T
+analyze_plan.py NC-2012-2012T-VPI-by-CD.csv NC-2012-2012T-parms.txt
 cd ..
 
 echo "... NC-2012-2012P ..."
