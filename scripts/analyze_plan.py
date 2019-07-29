@@ -78,8 +78,7 @@ def main():
 
     # Write the output files into the same directory as the input files
     write_points_csv(plan, points_csv)
-    # TODO - Uncomment next
-    # write_analysis_txt(plan, analysis_csv)
+    write_analysis_txt(plan, analysis_csv)
 
 # READ THE TWO INPUT FILES
 
