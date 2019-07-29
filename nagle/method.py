@@ -247,6 +247,12 @@ def evaluate_plan(plan):
                                           proportional=False,
                                           fptp=False)
 
+    # Add proportional shift with FPTP estimate seats
+    plan.d_sv_pf_pts, _ = infer_sv_points(plan.statewide_vote_share,
+                                          plan.vpi_by_district,
+                                          proportional=True,
+                                          fptp=True)
+
     plan.r_sv_pts = infer_inverse_sv_points(plan.districts,
                                             plan.statewide_vote_share,
                                             plan.d_sv_pts)

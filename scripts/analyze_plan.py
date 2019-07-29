@@ -160,19 +160,23 @@ def read_parms(parms_txt, field_specs):
 def write_points_csv(plan, points_csv):
     # A clone of print_all_points()
     with open(points_csv, 'w') as handle:
-        print("Vf, D-Sf, R-Sf, B_GSf, D-Sf-Ufptp, D-Sf-Uprob", file=handle)
+        print("Vf, D-Sf, R-Sf, B_GSf, D-Sf-Pfptp, D-Sf-Uprob, D-Sf-Ufptp", file=handle)
 
         for i in range(0, plan.n_sv_pts):
             vf_d, s_d = plan.d_sv_pts[i]
             _, s_r = plan.r_sv_pts[i]
             _, b_gs = plan.b_gs_pts[i]
-            _, s_d_uf = plan.d_sv_uf_pts[i]
+            # Additional points
+            _, s_d_pf = plan.d_sv_pf_pts[i]
             _, s_d_up = plan.d_sv_up_pts[i]
+            _, s_d_uf = plan.d_sv_uf_pts[i]
 
             # Convert #'s of seats to seat shares
             sf_d = s_d / plan.districts
             sf_r = s_r / plan.districts
             b_gsf = b_gs / plan.districts
+            # Additional points
+            sf_d_pf = s_d_pf / plan.districts
             sf_d_uf = s_d_uf / plan.districts
             sf_d_up = s_d_up / plan.districts
 
@@ -180,6 +184,8 @@ def write_points_csv(plan, points_csv):
                   "{0:.6f},".format(sf_d),
                   "{0:.6f},".format(sf_r),
                   "{0:+.6f},".format(b_gsf),
+                  # Additional points
+                  "{0:.6f},".format(sf_d_pf),
                   "{0:.6f},".format(sf_d_uf),
                   "{0:.6f}".format(sf_d_up),
                   file=handle
