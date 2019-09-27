@@ -1,0 +1,5 @@
+State:     CO
+Districts: 7
+Plan:      "2012"
+Election:  "2006AG"
+V:         0.452265
