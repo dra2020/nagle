@@ -1,0 +1,5 @@
+State:     I
+Districts: 10
+Plan:      "Cubic"
+Election:  "Cubic"
+V:         0.570000

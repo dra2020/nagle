@@ -1,0 +1,5 @@
+State:     J
+Districts: 10
+Plan:      "Anti-majoritarian"
+Election:  "Anti-majoritarian"
+V:         0.443000

@@ -1,0 +1,5 @@
+State:     L
+Districts: 10
+Plan:      "Inverted"
+Election:  "Inverted"
+V:         0.300000

@@ -1,0 +1,5 @@
+State:     E
+Districts: 12
+Plan:      "Competitive"
+Election:  "Competitive"
+V:         0.520000

@@ -1,0 +1,5 @@
+State:     H
+Districts: 10
+Plan:      "Very uncompetitive"
+Election:  "Very uncompetitive"
+V:         0.523000

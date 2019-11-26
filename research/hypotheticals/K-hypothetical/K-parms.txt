@@ -1,0 +1,5 @@
+State:     K
+Districts: 10
+Plan:      "Classic"
+Election:  "Classic"
+V:         0.500000
