@@ -1,0 +1,5 @@
+State:     F
+Districts: 10
+Plan:      "Competitive even"
+Election:  "Competitive even"
+V:         0.510000

@@ -1,0 +1,5 @@
+State:     C
+Districts: 25
+Plan:      "3-proportionality"
+Election:  "3-proportionality"
+V:         0.600000

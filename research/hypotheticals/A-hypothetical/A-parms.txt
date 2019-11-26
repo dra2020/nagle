@@ -1,0 +1,5 @@
+State:     A
+Districts: 23
+Plan:      "1-proportionality"
+Election:  "1-proportionality"
+V:         0.600000

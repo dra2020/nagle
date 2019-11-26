@@ -1,0 +1,5 @@
+State:     B
+Districts: 25
+Plan:      "2-proportionality"
+Election:  "2-proportionality"
+V:         0.600000

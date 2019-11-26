@@ -1,0 +1,5 @@
+State:     D
+Districts: 10
+Plan:      "Sweep"
+Election:  "Sweep"
+V:         0.640000
