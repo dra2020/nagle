@@ -5,25 +5,6 @@
 
 import numpy as np
 
-statewide_vote_share = 0.633217
-vpi_by_district = [
-    0.384407, 0.643145, 0.620664, 0.789455,
-    0.671242, 0.562937, 0.773399, 0.632344
-]
-shifted_vote_share = 0.25
-
-shifted_vpis = shift_districts_uniformly(statewide_vote_share,
-                                         vpi_by_district, shifted_vote_share)
-shift_districts(statewide_vote_share,
-                vpi_by_district, shifted_vote_share)
-shift_districts(statewide_vote_share,
-                vpi_by_district, shifted_vote_share,
-                proportional=False)
-
-est_statewide_seats_fptp(vpi_by_district)
-
-#
-
 # From Warrington:
 
 # 3
