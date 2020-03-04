@@ -2,4 +2,4 @@ State:     TN
 Districts: 9
 Plan:      "2012"
 Election:  "2012 Composite"
-V:         0.430028
+V:         0.415935
