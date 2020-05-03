@@ -419,4 +419,14 @@ def upper_bracket(sv_curve_pts, value, v_or_s):
             break
     return upper_pt
 
+
+# Echo the new gamma metric
+def print_gamma(plan):
+    print("{0}, {1}, {2}, {3:5.2f}, {4:.6f}".format(
+      plan.state,
+      plan.name,
+      plan.election_model,
+      plan.responsiveness,
+      plan.gamma))
+
 #

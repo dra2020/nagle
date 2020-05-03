@@ -229,6 +229,13 @@ def est_geometric_votes_bias(d_sv_pts, r_sv_pts, statewide_seats):
 def efficiency_gap(vote_share, seat_share):
     return (-1 * (seat_share - 0.5)) + (2 * (vote_share - 0.5))
 
+
+# Calculate new gamma measure
+# g = 50 + r<V>(<V>-50) – S(<V>)
+def calc_gamma(plan):
+    return 0.5 + plan.responsiveness * (plan.statewide_vote_share - 0.5) - (plan.predicted_D_seats / plan.districts)
+
+
 # Execute the method
 
 
@@ -308,5 +315,8 @@ def evaluate_plan(plan):
 
     plan.eg_predicted_at_V = efficiency_gap(plan.statewide_vote_share,
                                             plan.predicted_D_seats / plan.districts)
+
+    # Calculate the new gamma measure
+    plan.gamma = calc_gamma(plan)
 
 #
