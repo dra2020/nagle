@@ -233,7 +233,9 @@ def efficiency_gap(vote_share, seat_share):
 # Calculate new gamma measure
 # g = 50 + r<V>(<V>-50) – S(<V>)
 def calc_gamma(plan):
-    return 0.5 + plan.responsiveness * (plan.statewide_vote_share - 0.5) - (plan.predicted_D_seats / plan.districts)
+    return (0.5 + plan.responsiveness * (plan.statewide_vote_share - 0.5) \
+      - (plan.predicted_D_seats / plan.districts)) \
+        * 100
 
 
 # Execute the method
