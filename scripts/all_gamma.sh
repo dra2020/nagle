@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ANALYZE A BATCH OF PLANS
+# CALC LITTLE 'R' AND GAMMA FOR A BATCH OF PLANS
 #
 # For example: 
 #

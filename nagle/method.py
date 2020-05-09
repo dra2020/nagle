@@ -318,6 +318,8 @@ def evaluate_plan(plan):
     plan.eg_predicted_at_V = efficiency_gap(plan.statewide_vote_share,
                                             plan.predicted_D_seats / plan.districts)
 
+    # NOTE - Several metrics in Table 1 of the 2020 paper are *not* computed here
+
     # Calculate the new gamma measure
     plan.gamma = calc_gamma(plan)
 
