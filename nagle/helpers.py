@@ -3,8 +3,10 @@
 import sys
 import time
 
-import plotly.plotly as py
+# import plotly.plotly as py
+import chart_studio.plotly as py
 import plotly.graph_objs as go
+# import chart_studio.graph_objs as go
 
 import numpy as np
 
