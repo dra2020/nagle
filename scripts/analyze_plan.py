@@ -44,6 +44,9 @@ def main():
     plan.vpi_csv = os.path.basename(vpi_csv)
     plan.parms_txt = os.path.basename(parms_txt)
 
+    # print("Parms: ", plan.parms_txt)
+    # print("VPI: ", plan.vpi_csv)
+
     # Read the input files, and add the data to the Plan object
     plan.vpi_by_district, plan.two_party_by_district = read_vpi(vpi_csv)
     parms = read_parms(parms_txt, FIELD_SPECS)

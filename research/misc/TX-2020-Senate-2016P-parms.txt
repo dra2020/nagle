@@ -1,0 +1,5 @@
+State:     TX
+Districts: 31
+Plan:      Senate
+Election:  2016P
+V:         0.4528924256889289
