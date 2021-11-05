@@ -10,4 +10,4 @@ The [examples directory](https://github.com/alecramsay/nagle/tree/master/example
 
 ## License
 
-Distributed under the [The MIT License (MIT)](https://github.com/alecramsay/nagle/blob/master/LICENSE) Copyright © 2018–2019 Alec Ramsay
+Distributed under the [The MIT License (MIT)](https://github.com/alecramsay/nagle/blob/master/LICENSE) Copyright © 2018–2021 Alec Ramsay
