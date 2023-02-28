@@ -348,8 +348,20 @@ def evaluate_plan(plan):
 
 def evaluate_Rucho(plan) -> None:
     print()
+    print(f"Not shifted w/ fractional seats")
+    Vf: float = plan.statewide_vote_share
+    seats: float = est_statewide_seats(plan.vpi_by_district, fptp=False)
+    print(f"{plan.statewide_vote_share:.4f},{seats:.4f}")
+
+    print()
     print(f"Proportional shift w/ fractional seats")
     infer_sv_points_Rucho(plan.statewide_vote_share, plan.vpi_by_district)
+
+    print()
+    print(f"Not shifted w/ FPTP seats")
+    Vf: float = plan.statewide_vote_share
+    seats: float = est_statewide_seats(plan.vpi_by_district, fptp=True)
+    print(f"{plan.statewide_vote_share:.4f},{seats:.4f}")
 
     print()
     print(f"Proportional shift w/ FPTP seats")
@@ -357,17 +369,30 @@ def evaluate_Rucho(plan) -> None:
         plan.statewide_vote_share, plan.vpi_by_district, proportional=True, fptp=True
     )
 
+    print()
+
 
 def infer_sv_points_Rucho(
     statewide_vote_share, vpi_by_district, proportional=True, fptp=False
 ) -> None:
-    for shifted_vote_share in shift_range(statewide_vote_share):
+    for shifted_vote_share in turnout_range(statewide_vote_share):
         shifted_vpis: list = shift_districts(
             statewide_vote_share, vpi_by_district, shifted_vote_share, proportional
         )
         shifted_seats: float = est_statewide_seats(shifted_vpis, fptp)
 
         print(f"{shifted_vote_share:.4f},{shifted_seats:.4f}")
+
+
+def turnout_range(Vf: float) -> list[float]:
+    """Return +/- 5% steps around statewide vote share"""
+
+    epsilon: float = 1.0e-12
+    lower: int = ((Vf * 100 // 1) - 4) / 100
+    upper: int = (((Vf + 0.005) * 100 // 1) + 4) / 100
+    steps: list[float] = np.arange(lower, upper + epsilon, 0.01)
+
+    return steps
 
 
 ### END ###
