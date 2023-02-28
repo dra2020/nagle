@@ -4,12 +4,12 @@
 #
 # For example:
 #
-# analyze_Rucho.py -d NC-Rucho-actuals-VPI-by-CD.csv -p NC-Rucho-actuals-parms.txt
-# analyze_Rucho.py -d NC-Rucho-composite-VPI-by-CD.csv -p NC-Rucho-composite-parms.txt
+# scripts/analyze_Rucho.py -d NC-Rucho-actuals-VPI-by-CD.csv -p NC-Rucho-actuals-parms.txt
+# scripts/analyze_Rucho.py -d NC-Rucho-composite-VPI-by-CD.csv -p NC-Rucho-composite-parms.txt
 #
 # For documentation, type:
 #
-# analyze_Rucho.py -h
+# scripts/analyze_Rucho.py -h
 
 from nagle import *
 
