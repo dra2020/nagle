@@ -347,41 +347,101 @@ def evaluate_plan(plan):
 
 
 def evaluate_Rucho(plan: Plan, label: str) -> None:
+    """
+    Based on 2010 census:
+    North Carolina,NC,9565781
+    NC,13,735829.307692,18,531432.277778
+    """
+
+    total_pop: int = 9565781
+    nominal_seats: int = 13
+    list_seats: int = 5
+
     print()
-    print(f"'{label}' not shifted w/ fractional seats")
+    print(f"> '{label}' not shifted w/ fractional seats")
+    print()
     Vf: float = plan.statewide_vote_share
     seats: float = est_statewide_seats(plan.vpi_by_district, fptp=False)
     print(f"{plan.statewide_vote_share:.4f},{seats:.4f}")
 
     print()
     print(f"'{label}', proportional shift, and fractional seats")
-    infer_sv_points_Rucho(plan.statewide_vote_share, plan.vpi_by_district)
+    print()
+    shift_Rucho_results(
+        plan.statewide_vote_share,
+        plan.vpi_by_district,
+        nominal_seats,
+        list_seats,
+        total_pop,
+    )
 
     print()
-    print(f"'{label}' not shifted w/ FPTP seats")
+    print(f"> '{label}' not shifted w/ FPTP seats")
+    print()
     Vf: float = plan.statewide_vote_share
     seats: float = est_statewide_seats(plan.vpi_by_district, fptp=True)
     print(f"{plan.statewide_vote_share:.4f},{seats:.4f}")
 
     print()
     print(f"'{label}', proportional shift, and FPTP seats")
-    infer_sv_points_Rucho(
-        plan.statewide_vote_share, plan.vpi_by_district, proportional=True, fptp=True
+    print()
+    shift_Rucho_results(
+        plan.statewide_vote_share,
+        plan.vpi_by_district,
+        nominal_seats,
+        list_seats,
+        total_pop,
+        proportional=True,
+        fptp=True,
     )
 
     print()
 
 
-def infer_sv_points_Rucho(
-    statewide_vote_share, vpi_by_district, proportional=True, fptp=False
+def shift_Rucho_results(
+    statewide_vote_share,
+    vpi_by_district,
+    nominal_seats: int,
+    list_seats: int,
+    total_pop: int,
+    *,
+    proportional=True,
+    fptp=False,
 ) -> None:
+    print("XX, n, POWER, n', POWER', v/t, s, SKEW, s', SKEW'")
     for shifted_vote_share in turnout_range(statewide_vote_share):
         shifted_vpis: list = shift_districts(
             statewide_vote_share, vpi_by_district, shifted_vote_share, proportional
         )
         shifted_seats: float = est_statewide_seats(shifted_vpis, fptp)
+        D_wins: int = int(shifted_seats)
 
-        print(f"{shifted_vote_share:.4f},{shifted_seats:.4f}")
+        D_list: int
+        R_list: int
+        D_list, R_list = party_split(
+            nominal_seats, list_seats, shifted_vote_share, D_wins
+        )
+
+        n: int = nominal_seats
+        Vf: float = shifted_vote_share
+
+        power: float = total_pop / nominal_seats
+        n_prime: int = nominal_seats + list_seats
+        power_prime: float = total_pop / (nominal_seats + list_seats)
+        s: int = D_wins
+        skew: float = skew_pct(shifted_vote_share, D_wins, nominal_seats)
+        s_prime: int = D_wins + D_list
+        skew_prime = skew_pct(
+            shifted_vote_share, D_wins + D_list, nominal_seats + list_seats
+        )
+
+        print(
+            f"NC, {n}, {int(power)}, {n_prime}, {int(power_prime)}, {Vf:.4f}, {s}, {skew:.4f}, {s_prime}, {skew_prime:.4f}"
+        )
+
+        # print(
+        #     f"{shifted_vote_share:.4f},{shifted_seats:.4f},{n},{n_prime},{s},{s_prime}"
+        # )
 
 
 def turnout_range(Vf: float) -> list[float]:
@@ -393,6 +453,73 @@ def turnout_range(Vf: float) -> list[float]:
     steps: list[float] = np.arange(lower, upper + epsilon, 0.01)
 
     return steps
+
+
+# BELOW CLONED FROM MM2 REPO #
+
+
+def party_split(
+    nominal_seats: int, list_seats: int, vote_share: float, D_wins: int
+) -> tuple[int, int]:
+    """
+    The (D, R) split of list seats
+
+    - D's can't get more list seats than apportioned to the state
+    - D's can't *lose* seats, i.e., minimum D list seats is 0
+    - Other seats are constant, i.e., removed from the nominal seats
+
+    NOTE - Both nominal_seats and vote_share are *two party* values!
+    """
+
+    assert list_seats >= 0
+
+    if list_seats == 0:
+        return (0, 0)
+
+    PR: int = pr_seats(nominal_seats + list_seats, vote_share)
+    gap: int = ue_seats(PR, D_wins)
+
+    D_list: int = min(max(gap, 0), list_seats)
+    R_list: int = list_seats - D_list
+
+    return (D_list, R_list)
+
+
+EPSILON: float = 1 / (10**6)
+
+
+def pr_seats(N, Vf) -> int:
+    """
+    The # of seats closest to proportional for a given vote fraction (Vf)
+    and number of seats (N).
+    """
+    PR: int = round((Vf * N) - EPSILON)
+
+    return PR
+
+
+def ue_seats(PR: int, S: int) -> int:
+    """
+    Calculate the *whole* # of unearned seats (UE) for a # of D seats.
+    Positive values show UE R seats, negative UE D seats.
+    """
+
+    UE: int = PR - S
+
+    return UE
+
+
+def skew_pct(Vf: float, S: int, N: int, r: int = 1) -> float | None:
+    """
+    Args modified
+    """
+
+    # Vf: float = V / T
+    Sf: float = S / N
+
+    skew: float = abs((r * (Vf - 0.5)) - (Sf - 0.5))
+
+    return skew
 
 
 ### END ###
