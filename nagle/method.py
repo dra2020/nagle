@@ -346,25 +346,25 @@ def evaluate_plan(plan):
 ### RUCHO ANALYSIS ###
 
 
-def evaluate_Rucho(plan) -> None:
+def evaluate_Rucho(plan: Plan, label: str) -> None:
     print()
-    print(f"Not shifted w/ fractional seats")
+    print(f"'{label}' not shifted w/ fractional seats")
     Vf: float = plan.statewide_vote_share
     seats: float = est_statewide_seats(plan.vpi_by_district, fptp=False)
     print(f"{plan.statewide_vote_share:.4f},{seats:.4f}")
 
     print()
-    print(f"Proportional shift w/ fractional seats")
+    print(f"'{label}', proportional shift, and fractional seats")
     infer_sv_points_Rucho(plan.statewide_vote_share, plan.vpi_by_district)
 
     print()
-    print(f"Not shifted w/ FPTP seats")
+    print(f"'{label}' not shifted w/ FPTP seats")
     Vf: float = plan.statewide_vote_share
     seats: float = est_statewide_seats(plan.vpi_by_district, fptp=True)
     print(f"{plan.statewide_vote_share:.4f},{seats:.4f}")
 
     print()
-    print(f"Proportional shift w/ FPTP seats")
+    print(f"'{label}', proportional shift, and FPTP seats")
     infer_sv_points_Rucho(
         plan.statewide_vote_share, plan.vpi_by_district, proportional=True, fptp=True
     )

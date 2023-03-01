@@ -1,64 +1,28 @@
 #!/usr/bin/env python3
-#
-# MEASURE THE BIAS & RESPONSIVENESS OF REDISTRICTING PLAN, USING JOHN NAGLE'S METHOD
-#
-# For example:
-#
-# scripts/analyze_Rucho.py -d NC-Rucho-actuals-VPI-by-CD.csv -p NC-Rucho-actuals-parms.txt
-# scripts/analyze_Rucho.py -d NC-Rucho-composite-VPI-by-CD.csv -p NC-Rucho-composite-parms.txt
-#
-# For documentation, type:
-#
-# scripts/analyze_Rucho.py -h
+
+"""
+MEASURE THE BIAS & RESPONSIVENESS OF REDISTRICTING PLAN, USING JOHN NAGLE'S METHOD
+"""
 
 from nagle import *
 
 import sys
 import os
-import argparse
-from argparse import ArgumentParser, Namespace
 import csv
 from csv import DictReader
 from collections import defaultdict
 from typing import Any
 
 
-def parse_args() -> Namespace:
-    parser: ArgumentParser = argparse.ArgumentParser(
-        description="Analyze the Rucho plan responsiveness"
-    )
-    parser.add_argument(
-        "-d",
-        "--districts",
-        default="NC-Rucho-composite-VPI-by-CD.csv",
-        help="VPI-by-CD.csv",
-        type=str,
-    )
-    parser.add_argument(
-        "-p",
-        "--parms",
-        default="NC-Rucho-composite-parms.txt",
-        help="parms.txt",
-        type=str,
-    )
-
-    parser.add_argument(
-        "-v", "--verbose", dest="verbose", action="store_true", help="verbose mode"
-    )
-
-    args: Namespace = parser.parse_args()
-    return args
-
-
-def main() -> None:
-    args: Namespace = parse_args()
+def analyze_rucho(election_data: str) -> None:
+    # args: Namespace = parse_args()
 
     root_dir: str = "examples/"
+    districts: str = f"NC-Rucho-{election_data}-VPI-by-CD.csv"
+    parms: str = f"NC-Rucho-{election_data}-parms.txt"
 
-    vpi_csv: str = os.path.abspath(root_dir + args.districts)
-    parms_txt: str = os.path.abspath(root_dir + args.parms)
-
-    verbose: bool = args.verbose
+    vpi_csv: str = os.path.abspath(root_dir + districts)
+    parms_txt: str = os.path.abspath(root_dir + parms)
 
     plan: Plan = Plan()
     plan.vpi_csv = os.path.basename(vpi_csv)
@@ -70,8 +34,7 @@ def main() -> None:
     for i in parms:
         setattr(plan, i, parms[i])
 
-    # TODO - HERE
-    evaluate_Rucho(plan)
+    evaluate_Rucho(plan, election_data)
 
     pass
 
@@ -138,8 +101,12 @@ def read_parms(parms_txt, field_specs) -> defaultdict[str, Any]:
     return parms
 
 
-# END
+def main() -> None:
+    analyze_rucho("composite")
+    analyze_rucho("actuals")
 
 
 # Execute the script
 main()
+
+# END
